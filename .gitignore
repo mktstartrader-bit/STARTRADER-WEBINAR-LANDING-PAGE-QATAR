@@ -1,0 +1,16 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vercel
+.env
+.env.*
+!.env.example
+
+# build cache / tooling
+.vite
+*.tsbuildinfo
+
+# local editor / agent settings
+.claude/settings.local.json
