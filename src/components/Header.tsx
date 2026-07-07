@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/logo.svg";
+import LanguageMenu from "./LanguageMenu";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -17,9 +18,9 @@ export default function Header() {
         <a href="#top" className="header__brand" aria-label="STARTRADER home">
           <img className="header__logo" src={logo} alt="STARTRADER" />
         </a>
-        <a href="#register" className="btn btn--primary">
-          Reserve My Free Seat
-        </a>
+        <div className="header__actions">
+          <LanguageMenu />
+        </div>
       </div>
     </header>
   );

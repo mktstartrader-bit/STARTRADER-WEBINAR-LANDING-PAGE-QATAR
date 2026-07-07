@@ -187,6 +187,22 @@ export function Minus({ className, size = 24 }: IconProps) {
   );
 }
 
+export function ChevronDown({ className, size = 16 }: IconProps) {
+  return (
+    <svg className={className} {...stroke(size)}>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
+}
+
+export function Tick({ className, size = 16 }: IconProps) {
+  return (
+    <svg className={className} {...stroke(size)}>
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 /** Qatar flag — maroon field with the nine-point white serrated band. */
 export function QatarFlag({ className, size = 24 }: IconProps) {
   return (
