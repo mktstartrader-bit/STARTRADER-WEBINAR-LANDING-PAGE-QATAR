@@ -1,23 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Globe, ChevronDown, Tick } from "./Icons";
+import { useLang } from "../i18n/LanguageContext";
+import type { Lang } from "../i18n/translations";
 
-type Lang = { code: string; label: string };
-
-const languages: Lang[] = [
+const options: { code: Lang; label: string }[] = [
   { code: "en", label: "English" },
   { code: "ar", label: "العربية" },
 ];
 
-/**
- * Navbar language selector (UI only for now).
- *
- * Renders an English / العربية dropdown. Selecting an option updates the
- * displayed language, but does not yet translate the page or switch text
- * direction — that will be wired up when the localized content is ready.
- */
+/** Navbar language selector — switches the whole page between English and Arabic. */
 export default function LanguageMenu() {
+  const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
-  const [lang, setLang] = useState("en");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +29,7 @@ export default function LanguageMenu() {
     };
   }, []);
 
-  const current = languages.find((l) => l.code === lang) ?? languages[0];
+  const current = options.find((o) => o.code === lang) ?? options[0];
 
   return (
     <div className="lang" ref={ref}>
@@ -57,20 +51,21 @@ export default function LanguageMenu() {
 
       {open && (
         <ul className="lang__menu" role="menu">
-          {languages.map((l) => {
-            const active = l.code === lang;
+          {options.map((o) => {
+            const active = o.code === lang;
             return (
-              <li key={l.code} role="none">
+              <li key={o.code} role="none">
                 <button
                   type="button"
                   role="menuitem"
+                  lang={o.code}
                   className={`lang__item${active ? " lang__item--active" : ""}`}
                   onClick={() => {
-                    setLang(l.code);
+                    setLang(o.code);
                     setOpen(false);
                   }}
                 >
-                  <span>{l.label}</span>
+                  <span>{o.label}</span>
                   {active && <Tick size={16} />}
                 </button>
               </li>

@@ -1,16 +1,14 @@
 import logo from "../assets/logo.svg";
+import { useLang } from "../i18n/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLang();
+
   return (
     <footer className="footer">
       <div className="container">
         <img className="footer__logo" src={logo} alt="STARTRADER" />
-        <p className="footer__disclaimer">
-          Trading involves risk. CFD trading is not suitable for all investors.
-          This workshop is for educational purposes only and does not constitute
-          financial advice, investment advice, or a recommendation to buy or sell
-          any financial product.
-        </p>
+        <p className="footer__disclaimer">{t.footer.disclaimer}</p>
       </div>
     </footer>
   );

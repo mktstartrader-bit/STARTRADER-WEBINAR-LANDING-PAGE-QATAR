@@ -2,22 +2,20 @@ import presenter from "../assets/presenter.jpg";
 import mediaMain from "../assets/media-main.jpg";
 import media2 from "../assets/media-2.jpg";
 import media3 from "../assets/media-3.jpg";
-
-const stats = [
-  { num: "10+", cap: "Years in markets" },
-  { num: "100s", cap: "Educational sessions" },
-  { num: "1,000s", cap: "Followers guided" },
-];
+import { useLang } from "../i18n/LanguageContext";
 
 export default function Presenter() {
+  const { t } = useLang();
+  const p = t.presenter;
+
   return (
     <section className="section">
       <div className="container">
         <div className="presenter__grid">
           <div className="presenter__photo reveal reveal--left">
-            <img src={presenter} alt="Ghassan Albohtori, Senior Market Analyst" />
+            <img src={presenter} alt={p.name} />
             <div className="presenter__stats">
-              {stats.map((s) => (
+              {p.stats.map((s) => (
                 <div className="presenter__stat" key={s.cap}>
                   <div className="num">{s.num}</div>
                   <div className="cap">{s.cap}</div>
@@ -27,34 +25,20 @@ export default function Presenter() {
           </div>
 
           <div className="presenter__info reveal reveal--right">
-            <p className="presenter__eyebrow">Meet Your Presenter</p>
-            <h2 className="presenter__name">Ghassan Albohtori</h2>
-            <p className="presenter__role">Senior Market Analyst · STARTRADER</p>
+            <p className="presenter__eyebrow">{p.eyebrow}</p>
+            <h2 className="presenter__name">{p.name}</h2>
+            <p className="presenter__role">{p.role}</p>
 
             <div className="presenter__bio">
-              <p>
-                With more than 10 years of experience in financial markets,
-                Ghassan has helped thousands of market followers better
-                understand global economic developments, commodities, and market
-                behavior.
-              </p>
-              <p>
-                Through hundreds of educational sessions and media appearances,
-                he has become known for simplifying complex market topics and
-                helping participants connect market events with real-world
-                implications.
-              </p>
-              <p>
-                His interactive approach encourages discussion, practical
-                thinking, and a clearer understanding of how experienced market
-                participants interpret changing market conditions.
-              </p>
+              {p.bio.map((para) => (
+                <p key={para}>{para}</p>
+              ))}
             </div>
 
             <div className="presenter__media stagger">
-              <img className="wide" src={mediaMain} alt="Ghassan presenting a live market session" />
-              <img className="small" src={media2} alt="Media appearance" />
-              <img className="small" src={media3} alt="Media appearance" />
+              <img className="wide" src={mediaMain} alt={p.name} />
+              <img className="small" src={media2} alt={p.name} />
+              <img className="small" src={media3} alt={p.name} />
             </div>
           </div>
         </div>

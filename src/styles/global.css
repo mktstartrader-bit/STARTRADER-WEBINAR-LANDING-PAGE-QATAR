@@ -1574,3 +1574,59 @@ input {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   RTL (Arabic)
+   ========================================================================== */
+
+/* Arabic web font — layout + spacing are inherited, only the typeface swaps */
+:root:lang(ar),
+[lang="ar"] {
+  font-family: "Tajawal", "Plus Jakarta Sans", system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Slightly relax Arabic line-height for legibility */
+[dir="rtl"] .hero__lead,
+[dir="rtl"] .section-subtitle,
+[dir="rtl"] .presenter__bio p,
+[dir="rtl"] .about__text,
+[dir="rtl"] .faq__a p,
+[dir="rtl"] .footer__disclaimer {
+  line-height: 1.8;
+}
+
+/* Desktop hero: presenter mirrors to the left, copy sits on the right */
+@media (min-width: 901px) {
+  [dir="rtl"] .hero__media {
+    right: auto;
+    left: 32px;
+  }
+}
+
+/* Language dropdown opens from the opposite edge */
+[dir="rtl"] .lang__menu {
+  right: auto;
+  left: 0;
+}
+
+/* FAQ question label aligns to the reading side */
+[dir="rtl"] .faq__q {
+  text-align: right;
+}
+
+[dir="rtl"] .faq__q .idx {
+  margin-right: 0;
+  margin-left: 6px;
+}
+
+/* Checklist hover indent follows the reading direction */
+[dir="rtl"] .checklist .checklist__row:hover {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Keep Latin/number runs (codes, phone, stats) rendering left-to-right */
+[dir="rtl"] .presenter__stat .num {
+  direction: ltr;
+}

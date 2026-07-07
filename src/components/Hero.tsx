@@ -2,51 +2,41 @@ import { Fragment } from "react";
 import heroBanner from "../assets/hero-banner.png";
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.png";
-import {
-  Calendar,
-  Clock,
-  Monitor,
-  User,
-  Globe,
-  ShieldCheck,
-} from "./Icons";
-
-const infoItems = [
-  { icon: <Calendar size={22} />, label: "27-07-2026", sub: "Monday" },
-  { icon: <Clock size={22} />, label: "09:00 AM", sub: "(Qatar Time)" },
-  { icon: <Monitor size={22} />, label: "Online", sub: "Free to attend" },
-  { icon: <User size={22} />, label: "Presented by", sub: "Ghassan Albahtoori" },
-];
+import { Calendar, Clock, Monitor, User, Globe, ShieldCheck } from "./Icons";
+import { useLang } from "../i18n/LanguageContext";
 
 export default function Hero() {
+  const { t } = useLang();
+  const h = t.hero;
+
+  const infoItems = [
+    { icon: <Calendar size={22} />, ...h.info.date },
+    { icon: <Clock size={22} />, ...h.info.time },
+    { icon: <Monitor size={22} />, ...h.info.online },
+    { icon: <User size={22} />, ...h.info.presenter },
+  ];
+
   return (
     <section className="hero" id="top">
       <div className="container">
         <div className="hero__copy stagger">
           <span className="pill pill--brand">
             <span className="pill__dot" />
-            Free Live Workshop · Qatar
+            {h.badge}
           </span>
 
           <h1 className="hero__title">
-            You've Been Watching the Markets.{" "}
-            <span className="accent">Now Know What Matters.</span>
+            {h.title.main} <span className="accent">{h.title.accent}</span>
           </h1>
 
-          <p className="hero__lead">
-            For people who follow Gold, Oil, and global markets and want a
-            clearer way to interpret what is driving market movement.
-          </p>
+          <p className="hero__lead">{h.lead}</p>
 
-          <p className="hero__lead hero__lead--sub">
-            This is not a typical webinar. It is a structured live workshop
-            focused on market interpretation.
-          </p>
+          <p className="hero__lead hero__lead--sub">{h.sub}</p>
 
           <p className="hero__tagline">
-            Walk In With Questions.
+            {h.tagline[0]}
             <br />
-            Leave With A Clearer Approach.
+            {h.tagline[1]}
           </p>
 
           <div className="info-card">
@@ -65,25 +55,22 @@ export default function Hero() {
           </div>
 
           <a href="#register" className="btn btn--primary hero__cta">
-            Reserve My Free Seat
+            {h.cta}
           </a>
         </div>
 
         <div className="hero__media reveal reveal--right">
-          <img
-            src={heroBanner}
-            alt="STARTRADER senior market analyst Ghassan Albahtoori"
-          />
+          <img src={heroBanner} alt={h.info.presenter.sub} />
         </div>
 
         <div className="trust reveal">
           <div className="trust__item">
             <ShieldCheck size={26} />
             <span className="trust__text">
-              <span className="top">
-                Regulated across multiple jurisdictions including
+              <span className="top">{h.trust.regulatedTop}</span>
+              <span className="bottom" dir="ltr">
+                {h.trust.regulatedBottom}
               </span>
-              <span className="bottom">ASIC | FSCA | CMA | FSA | FSC</span>
             </span>
           </div>
 
@@ -92,20 +79,16 @@ export default function Hero() {
           <div className="trust__item">
             <Globe size={26} />
             <span className="trust__text">
-              <span className="top">Global</span>
-              <span className="bottom">Multi-Asset Broker</span>
+              <span className="top">{h.trust.globalTop}</span>
+              <span className="bottom">{h.trust.globalBottom}</span>
             </span>
           </div>
 
           <span className="trust__divider" />
 
           <div className="trust__logos">
-            <img className="nba" src={nba} alt="Official Partner of the NBA" />
-            <img
-              className="porsche"
-              src={porsche}
-              alt="Porsche Carrera Cup partner"
-            />
+            <img className="nba" src={nba} alt={h.trust.nbaAlt} />
+            <img className="porsche" src={porsche} alt={h.trust.porscheAlt} />
           </div>
         </div>
       </div>
