@@ -516,16 +516,30 @@ input {
   }
   .hero__media {
     position: absolute;
-    right: 32px;
+    right: -8px;
     bottom: 0;
-    width: 45%;
-    max-width: 560px;
+    width: 56%;
+    max-width: 720px;
     margin: 0;
     z-index: 1;
     pointer-events: none;
   }
   .hero__media img {
     max-width: 100%;
+  }
+  /* Fade the cut (bottom) of the cutout into the hero background */
+  .hero__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(238, 242, 249, 0) 66%,
+      rgba(238, 242, 249, 0.9) 90%,
+      rgba(238, 242, 249, 1) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
   }
   .trust {
     position: relative;
@@ -1600,7 +1614,7 @@ input {
 @media (min-width: 901px) {
   [dir="rtl"] .hero__media {
     right: auto;
-    left: 32px;
+    left: -8px;
   }
 }
 
