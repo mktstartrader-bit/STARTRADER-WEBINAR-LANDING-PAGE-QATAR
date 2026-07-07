@@ -15,7 +15,7 @@ const infoItems = [
   { icon: <Calendar size={22} />, label: "27-07-2026", sub: "Monday" },
   { icon: <Clock size={22} />, label: "09:00 AM", sub: "(Qatar Time)" },
   { icon: <Monitor size={22} />, label: "Online", sub: "Free to attend" },
-  { icon: <User size={22} />, label: "Attended By", sub: "Ghassan Albahtoori" },
+  { icon: <User size={22} />, label: "Presented by", sub: "Ghassan Albahtoori" },
 ];
 
 export default function Hero() {
@@ -25,22 +25,28 @@ export default function Hero() {
         <div className="hero__copy stagger">
           <span className="pill pill--brand">
             <span className="pill__dot" />
-            Free Live Webinar · Qatar
+            Free Live Workshop · Qatar
           </span>
 
           <h1 className="hero__title">
-            You've Been Watching the Markets. Is It Time to{" "}
-            <span className="accent">Take the Next Step</span>
+            You've Been Watching the Markets.{" "}
+            <span className="accent">Now Know What Matters.</span>
           </h1>
 
           <p className="hero__lead">
-            Learn how experienced market participants approach Gold, Oil, and
-            today's market developments, and discover practical steps you can
-            take with greater confidence.
-            <span className="em">
-              Understanding Markets Is One Thing. Knowing What To Do Next Is
-              Another.
-            </span>
+            For people who follow Gold, Oil, and global markets and want a
+            clearer way to interpret what is driving market movement.
+          </p>
+
+          <p className="hero__lead hero__lead--sub">
+            This is not a typical webinar. It is a structured live workshop
+            focused on market interpretation.
+          </p>
+
+          <p className="hero__tagline">
+            Walk In With Questions.
+            <br />
+            Leave With A Clearer Approach.
           </p>
 
           <div className="info-card">
@@ -59,7 +65,7 @@ export default function Hero() {
           </div>
 
           <a href="#register" className="btn btn--primary hero__cta">
-            Save My Free Seat
+            Reserve My Free Seat
           </a>
         </div>
 

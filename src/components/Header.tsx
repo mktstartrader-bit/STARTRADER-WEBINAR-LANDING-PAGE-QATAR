@@ -18,7 +18,7 @@ export default function Header() {
           <img className="header__logo" src={logo} alt="STARTRADER" />
         </a>
         <a href="#register" className="btn btn--primary">
-          Save My Free Seat
+          Reserve My Free Seat
         </a>
       </div>
     </header>

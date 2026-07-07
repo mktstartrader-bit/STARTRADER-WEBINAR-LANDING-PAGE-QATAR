@@ -44,15 +44,8 @@ export default function RegistrationIncludes() {
                 insights, and market education.
               </p>
               <p>
-                Trusted by clients globally and supported by global partnerships
-                including the{" "}
-                <b>NBA and Porsche Carrera Cup Middle East,</b> STARTRADER
-                remains committed to helping traders and market followers better
-                understand <b>financial markets</b> through{" "}
-                <b>
-                  analyst-led sessions, educational resources, and market
-                  insights.
-                </b>
+                STARTRADER is also an{" "}
+                <b>Official Partner of the NBA and Porsche Carrera Cup Middle East.</b>
               </p>
             </div>
             <div className="about__logos">

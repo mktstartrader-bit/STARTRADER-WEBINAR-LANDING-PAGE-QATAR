@@ -25,7 +25,7 @@ const rows = [
   },
   {
     icon: <MessageSquare size={24} />,
-    text: "Live Q&A Session",
+    text: "Live Q&A with the analyst",
   },
 ];
 

@@ -13,7 +13,7 @@ export default function RegistrationForm() {
     <section className="section section--dark register" id="register">
       <div className="container">
         <form className="form-card reveal" onSubmit={handleSubmit}>
-          <h2 className="form-card__title">Save My Free Seat</h2>
+          <h2 className="form-card__title">Reserve Your Free Seat</h2>
 
           <div className="field">
             <label htmlFor="fullName">Full Name</label>
@@ -43,7 +43,7 @@ export default function RegistrationForm() {
           </div>
 
           <div className="field">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email Address</label>
             <input
               id="email"
               name="email"
@@ -54,18 +54,20 @@ export default function RegistrationForm() {
           </div>
 
           <p className="form-note">
-            Please ensure your phone number is correct so you can receive webinar
-            access details and reminders. A <b>STARTRADER</b> team member may
-            contact you before the session if needed.
+            Enter your correct mobile number so our team can send access details,
+            reminders, and contact you before the session to help you attend
+            smoothly.
           </p>
 
           <button type="submit" className="btn btn--primary btn--block">
-            {submitted ? "You're Registered ✓" : "Save My Free Seat"}
+            {submitted ? "You're Registered ✓" : "Reserve My Free Seat"}
           </button>
+
+          <p className="form-microcopy">Takes less than 60 seconds to register</p>
         </form>
 
         <p className="register__caption">
-          Free registration · Limited live seats · Instant confirmation
+          Free registration · Live session · Instant confirmation
         </p>
       </div>
     </section>

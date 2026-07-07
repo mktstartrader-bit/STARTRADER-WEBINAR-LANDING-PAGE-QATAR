@@ -29,7 +29,7 @@ export default function Presenter() {
           <div className="presenter__info reveal reveal--right">
             <p className="presenter__eyebrow">Meet Your Presenter</p>
             <h2 className="presenter__name">Ghassan Albohtori</h2>
-            <p className="presenter__role">Senior Market Analyst: STARTRADER</p>
+            <p className="presenter__role">Senior Market Analyst · STARTRADER</p>
 
             <div className="presenter__bio">
               <p>
