@@ -18,7 +18,7 @@ const en = {
       date: { label: "05-08-2026", sub: "Wednesday" },
       time: { label: "08:00 PM", sub: "(Qatar Time)" },
       online: { label: "Online", sub: "Free to attend" },
-      presenter: { label: "Presented by", sub: "Ghassan Albahtoori" },
+      presenter: { label: "Presented by", sub: "Ghassan Albohtori" },
     },
     trust: {
       points: [
@@ -214,7 +214,7 @@ const ar: Translation = {
       date: { label: "05-08-2026", sub: "الأربعاء" },
       time: { label: "08:00 مساءً", sub: "بتوقيت قطر" },
       online: { label: "أونلاين", sub: "حضور مجاني" },
-      presenter: { label: "مقدمة من قبل", sub: "غسان البحيري" },
+      presenter: { label: "مقدمة من قبل", sub: "غسان البحتري" },
     },
     trust: {
       points: [
@@ -297,7 +297,7 @@ const ar: Translation = {
 
   presenter: {
     eyebrow: "مقدم الندوة",
-    name: "غسان البحيري",
+    name: "غسان البحتري",
     role: "محلل الأسواق المالية · STARTRADER",
     bio: [
       "بخبرة تزيد عن عشر سنوات في الأسواق المالية، ساعد غسان العديد من المتابعين على فهم التطورات الاقتصادية العالمية والسلع وسلوك السوق بشكل أفضل.",
