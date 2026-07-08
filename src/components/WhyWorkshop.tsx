@@ -1,14 +1,10 @@
-import { Coins, BarChart, Refresh } from "./Icons";
+import { Coins, BarChart } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
 
 export default function WhyWorkshop() {
   const { t } = useLang();
   const w = t.why;
-  const icons = [
-    <Coins size={24} />,
-    <BarChart size={24} />,
-    <Refresh size={24} />,
-  ];
+  const icons = [<Coins size={24} />, <BarChart size={24} />];
 
   return (
     <section className="section section--surface">
@@ -19,10 +15,7 @@ export default function WhyWorkshop() {
 
           <div className="why__cards stagger">
             {w.cards.map((text, i) => (
-              <div
-                className={`why__card${i === 2 ? " why__card--wide" : ""}`}
-                key={text}
-              >
+              <div className="why__card" key={text}>
                 {icons[i]}
                 <span>{text}</span>
               </div>

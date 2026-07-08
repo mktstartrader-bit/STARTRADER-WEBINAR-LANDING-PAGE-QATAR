@@ -55,7 +55,6 @@ const en = {
     cards: [
       "Gold, oil, the dollar, the relationship between different assets can be difficult to navigate.",
       "If you feel confused about the market, this workshop is for you.",
-      "It is built to help you stop reacting to every update and start using a clearer process for what to focus on, what to ignore, and what to do next.",
     ],
   },
 
@@ -257,7 +256,6 @@ const ar: Translation = {
     cards: [
       "العلاقة بين الذهب والنفط والدولار قد تكون غير واضحة للكثير من المتابعين.",
       "إذا كنت تشعر بالحيرة تجاه السوق، فهذه الندوة لك.",
-      "تهدف هذه الندوة إلى مساعدتك في استخدام طريقة أكثر وضوحًا لتحديد ما يجب التركيز عليه، وما يجب تجاهله، وما يجب فعله لاحقًا.",
     ],
   },
 
