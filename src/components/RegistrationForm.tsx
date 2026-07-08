@@ -1,16 +1,60 @@
 import { useState, type FormEvent } from "react";
 import { QatarFlag } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
+import {
+  WEB3FORMS_ACCESS_KEY,
+  LEAD_CC,
+  LEAD_SUBJECT,
+  LEAD_FROM_NAME,
+} from "../leadConfig";
+
+type Status = "idle" | "sending" | "success" | "error";
 
 export default function RegistrationForm() {
   const { t } = useLang();
   const r = t.register;
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    if (status === "sending" || status === "success") return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    data.append("access_key", WEB3FORMS_ACCESS_KEY);
+    data.append("subject", LEAD_SUBJECT);
+    data.append("from_name", LEAD_FROM_NAME);
+    if (LEAD_CC.length > 0) data.append("cc", LEAD_CC.join(", "));
+
+    // Store the mobile with its country code so the lead is dial-ready.
+    const mobile = String(data.get("mobile") ?? "").trim();
+    if (mobile) data.set("mobile", `+974 ${mobile}`);
+
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
+
+  const buttonLabel =
+    status === "sending"
+      ? r.sending
+      : status === "success"
+        ? r.submitted
+        : r.button;
 
   return (
     <section className="section section--dark register" id="register">
@@ -58,11 +102,31 @@ export default function RegistrationForm() {
             />
           </div>
 
+          {/* Honeypot: hidden from real users, catches bots. */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            autoComplete="off"
+            style={{ display: "none" }}
+            aria-hidden="true"
+          />
+
           <p className="form-note">{r.note}</p>
 
-          <button type="submit" className="btn btn--primary btn--block">
-            {submitted ? r.submitted : r.button}
+          <button
+            type="submit"
+            className="btn btn--primary btn--block"
+            disabled={status === "sending" || status === "success"}
+          >
+            {buttonLabel}
           </button>
+
+          {status === "error" && (
+            <p className="form-error" role="alert">
+              {r.error}
+            </p>
+          )}
 
           <p className="form-microcopy">{r.microcopy}</p>
         </form>

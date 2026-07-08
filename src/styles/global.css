@@ -766,6 +766,13 @@ input {
   margin-top: 12px;
 }
 
+.form-error {
+  text-align: center;
+  font-size: 13px;
+  color: #e5484d;
+  margin-top: 12px;
+}
+
 .register__caption {
   text-align: center;
   font-size: 12px;
