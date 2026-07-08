@@ -89,7 +89,7 @@ input {
 }
 
 .section {
-  padding: 44px 0;
+  padding: 40px 0;
 }
 
 @media (max-width: 720px) {
@@ -97,7 +97,7 @@ input {
     padding: 0 20px;
   }
   .section {
-    padding: 32px 0;
+    padding: 28px 0;
   }
 }
 
@@ -1113,6 +1113,9 @@ input {
    ========================================================================== */
 .section--fade {
   background: linear-gradient(180deg, #ffffff 0%, rgba(218, 227, 237, 0.6) 100%);
+  /* Presenter section above already provides bottom spacing, so keep this
+     transition tight and avoid a large white gap. */
+  padding-top: 4px;
 }
 
 .includes__grid {
