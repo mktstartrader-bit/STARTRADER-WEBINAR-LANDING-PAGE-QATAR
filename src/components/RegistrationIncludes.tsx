@@ -14,11 +14,6 @@ export default function RegistrationIncludes() {
           {/* Included with registration */}
           <div className="card-panel">
             <h3 className="card-panel__title">{inc.title}</h3>
-            <p className="includes__toolkit">
-              <b>{inc.toolkit}</b>
-              <br />
-              {inc.receives}
-            </p>
             <ul className="includes__list">
               {inc.items.map((item) => (
                 <li key={item}>{item}</li>

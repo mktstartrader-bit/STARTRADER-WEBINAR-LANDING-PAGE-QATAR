@@ -11,6 +11,7 @@ import RegistrationIncludes from "./components/RegistrationIncludes";
 import Faq from "./components/Faq";
 import FinalCta from "./components/FinalCta";
 import Footer from "./components/Footer";
+import FloatingCta from "./components/FloatingCta";
 
 export default function App() {
   useScrollReveal();
@@ -31,6 +32,7 @@ export default function App() {
         <FinalCta />
       </main>
       <Footer />
+      <FloatingCta />
     </>
   );
 }

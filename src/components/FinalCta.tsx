@@ -8,7 +8,6 @@ export default function FinalCta() {
     <section className="section section--dark final">
       <div className="container">
         <h2 className="final__title reveal">{f.title}</h2>
-        <p className="final__sub reveal">{f.subtitle}</p>
 
         <div className="final__pills stagger">
           {f.pills.map((p) => (

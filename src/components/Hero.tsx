@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import heroBanner from "../assets/hero-banner.png";
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.png";
-import { Calendar, Clock, Monitor, User, Globe, ShieldCheck } from "./Icons";
+import { Calendar, Clock, Monitor, User, Check } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
 
 export default function Hero() {
@@ -30,8 +30,6 @@ export default function Hero() {
           </h1>
 
           <p className="hero__lead">{h.lead}</p>
-
-          <p className="hero__lead hero__lead--sub">{h.sub}</p>
 
           <p className="hero__tagline">
             {h.tagline[0]}
@@ -64,28 +62,14 @@ export default function Hero() {
         </div>
 
         <div className="trust reveal">
-          <div className="trust__item">
-            <ShieldCheck size={26} />
-            <span className="trust__text">
-              <span className="top">{h.trust.regulatedTop}</span>
-              <span className="bottom" dir="ltr">
-                {h.trust.regulatedBottom}
-              </span>
-            </span>
-          </div>
-
-          <span className="trust__divider" />
-
-          <div className="trust__item">
-            <Globe size={26} />
-            <span className="trust__text">
-              <span className="top">{h.trust.globalTop}</span>
-              <span className="bottom">{h.trust.globalBottom}</span>
-            </span>
-          </div>
-
-          <span className="trust__divider" />
-
+          <ul className="trust__list">
+            {h.trust.points.map((point) => (
+              <li className="trust__point" key={point}>
+                <Check size={22} />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
           <div className="trust__logos">
             <img className="nba" src={nba} alt={h.trust.nbaAlt} />
             <img className="porsche" src={porsche} alt={h.trust.porscheAlt} />
