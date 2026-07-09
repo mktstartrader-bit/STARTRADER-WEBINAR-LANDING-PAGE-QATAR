@@ -1,4 +1,4 @@
-import presenter from "../assets/presenter.png";
+import presenter from "../assets/presenter.jpg";
 import mediaMain from "../assets/media-main.jpg";
 import media2 from "../assets/media-2.jpg";
 import media3 from "../assets/media-3.jpg";

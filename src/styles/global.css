@@ -1008,7 +1008,7 @@ input {
   border-radius: var(--radius-lg);
   object-fit: cover;
   aspect-ratio: 550 / 540;
-  object-position: center bottom;
+  object-position: center top;
 }
 
 .presenter__stats {
@@ -1099,7 +1099,7 @@ input {
   .presenter__photo > img {
     height: 100%;
     aspect-ratio: auto;
-    object-position: center 20%;
+    object-position: center top;
   }
 }
 
@@ -1214,6 +1214,21 @@ input {
 
 .about__logos .porsche {
   height: 42px;
+}
+
+/* Desktop: keep the two panels the same height so they stay balanced, and
+   anchor the About logos to the bottom to fill the shorter card gracefully. */
+@media (min-width: 861px) {
+  .includes__grid {
+    align-items: stretch;
+  }
+  .includes__grid .card-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .includes__grid .about__logos {
+    margin-top: auto;
+  }
 }
 
 @media (max-width: 860px) {
