@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import heroBanner from "../assets/hero-banner.png";
+import heroBanner from "../assets/hero-banner.jpg";
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.png";
 import { Calendar, Clock, Monitor, User, Check } from "./Icons";
@@ -58,7 +58,10 @@ export default function Hero() {
         </div>
 
         <div className="hero__media reveal reveal--right">
-          <img src={heroBanner} alt={h.info.presenter.sub} />
+          <img
+            src={heroBanner}
+            alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
+          />
         </div>
 
         <div className="trust reveal">
