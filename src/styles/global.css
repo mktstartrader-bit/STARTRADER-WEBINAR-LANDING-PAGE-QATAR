@@ -405,11 +405,28 @@ input {
 .hero__media img {
   display: block;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   height: auto;
   margin: 0 auto;
-  border-radius: 20px;
-  box-shadow: 0 24px 50px rgba(13, 13, 75, 0.16);
+  /* Dissolve the image edges into the banner background (no card / shadow) */
+  -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-composite: intersect;
 }
 
 /* Info card (date / time / online / presenter) */
@@ -487,10 +504,10 @@ input {
     padding-bottom: 44px;
   }
   .hero__media {
-    margin-top: 32px;
+    margin-top: 28px;
   }
   .hero__media img {
-    max-width: 380px;
+    max-width: 440px;
   }
   .hero__copy {
     text-align: center;
@@ -539,8 +556,8 @@ input {
   }
   .hero .container {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
-    column-gap: 56px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+    column-gap: 48px;
     align-items: center;
   }
   .hero__copy {
