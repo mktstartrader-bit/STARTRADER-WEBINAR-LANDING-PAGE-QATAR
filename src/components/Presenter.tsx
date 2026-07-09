@@ -1,7 +1,6 @@
-import presenter from "../assets/presenter.jpg";
-import mediaMain from "../assets/media-main.jpg";
+import presenter from "../assets/presenter.png";
+import media1 from "../assets/media-1.jpg";
 import media2 from "../assets/media-2.jpg";
-import media3 from "../assets/media-3.jpg";
 import { useLang } from "../i18n/LanguageContext";
 
 export default function Presenter() {
@@ -36,9 +35,8 @@ export default function Presenter() {
             </div>
 
             <div className="presenter__media stagger">
-              <img className="wide" src={mediaMain} alt={p.name} />
-              <img className="small" src={media2} alt={p.name} />
-              <img className="small" src={media3} alt={p.name} />
+              <img src={media1} alt={p.name} />
+              <img src={media2} alt={p.name} />
             </div>
           </div>
         </div>

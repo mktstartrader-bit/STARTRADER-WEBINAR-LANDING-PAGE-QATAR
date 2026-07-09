@@ -68,6 +68,7 @@
         cards: [
           "Gold, oil, the dollar, the relationship between different assets can be difficult to navigate.",
           "If you feel confused about the market, this workshop is for you.",
+          "Start using a clearer process for what to focus on, what to ignore, and what to do next.",
         ],
       },
       who: {
@@ -252,6 +253,7 @@
         cards: [
           "العلاقة بين الذهب والنفط والدولار قد تكون غير واضحة للكثير من المتابعين.",
           "إذا كنت تشعر بالحيرة تجاه السوق، فهذه الندوة لك.",
+          "ابدأ باستخدام منهجية أوضح لتحديد ما يجب التركيز عليه، وما يجب تجاهله، وما الخطوة التالية.",
         ],
       },
       who: {
@@ -410,12 +412,17 @@
 
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var value = resolve(dict, el.getAttribute("data-i18n"));
-      if (value == null) {
-        el.style.display = "none";
-        return;
-      }
-      el.style.display = "";
-      el.textContent = value;
+      // If a key is missing, keep the element's HTML fallback text so content
+      // can never blank out.
+      if (value != null) el.textContent = value;
+    });
+
+    // Rows that only exist in some languages (e.g. the English "Included" and
+    // "Who is it for" lists are longer than the Arabic ones): collapse the
+    // whole row when its key is absent in the active language, show otherwise.
+    document.querySelectorAll("[data-i18n-optional]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-optional");
+      el.style.display = resolve(dict, key) == null ? "none" : "";
     });
 
     document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {

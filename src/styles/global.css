@@ -310,8 +310,8 @@ input {
 .hero {
   position: relative;
   overflow: hidden;
-  /* Matches the image's studio-white backdrop so the photo blends in */
-  background: var(--surface);
+  /* White to match the banner image's clean white backdrop so it merges in */
+  background: var(--white);
   padding: 52px 0 0;
 }
 
@@ -424,13 +424,13 @@ input {
   pointer-events: none;
   background: linear-gradient(
       to top,
-      rgba(244, 247, 250, 0) 80%,
-      rgba(244, 247, 250, 1) 100%
+      rgba(255, 255, 255, 0) 80%,
+      rgba(255, 255, 255, 1) 100%
     ),
     linear-gradient(
       to bottom,
-      rgba(244, 247, 250, 0) 90%,
-      rgba(244, 247, 250, 1) 100%
+      rgba(255, 255, 255, 0) 90%,
+      rgba(255, 255, 255, 1) 100%
     );
 }
 
@@ -1005,33 +1005,43 @@ input {
    ========================================================================== */
 .presenter__grid {
   display: grid;
-  grid-template-columns: 0.85fr 1fr;
-  gap: 48px;
+  grid-template-columns: minmax(0, 550fr) minmax(0, 620fr);
+  gap: 40px;
   align-items: start;
 }
 
+/* Figma: the portrait sits on a soft blue-grey gradient panel, inset with a
+   gutter on the sides/top and flush to the bottom so the presenter "stands"
+   in the panel. */
 .presenter__photo {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
+  background: linear-gradient(
+    180deg,
+    #dae3ed 0%,
+    rgba(218, 227, 237, 0.3) 100%
+  );
+  aspect-ratio: 550 / 531;
+  padding: 25px 20px 0;
 }
 
 .presenter__photo > img {
   width: 100%;
-  border-radius: var(--radius-lg);
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 550 / 540;
-  object-position: center top;
+  object-position: bottom;
 }
 
 .presenter__stats {
   position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  background: rgba(20, 24, 48, 0.42);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  background: rgba(0, 71, 187, 0.35);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.18);
   display: grid;
@@ -1081,39 +1091,15 @@ input {
 .presenter__media {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .presenter__media img {
   width: 100%;
   border-radius: var(--radius);
   object-fit: cover;
-}
-
-.presenter__media .wide {
-  grid-column: 1 / -1;
-  aspect-ratio: 620 / 300;
-}
-
-.presenter__media .small {
   aspect-ratio: 305 / 169;
-}
-
-/* Desktop: let the photo fill the column height so there's no dead space
-   beside the taller bio/media column. */
-@media (min-width: 901px) {
-  .presenter__grid {
-    align-items: stretch;
-  }
-  .presenter__photo {
-    height: 100%;
-  }
-  .presenter__photo > img {
-    height: 100%;
-    aspect-ratio: auto;
-    object-position: center top;
-  }
 }
 
 @media (max-width: 900px) {
@@ -1239,8 +1225,10 @@ input {
     display: flex;
     flex-direction: column;
   }
-  .includes__grid .about__logos {
-    margin-top: auto;
+  /* Center the About STARTRADER card's content vertically so its shorter
+     column doesn't leave whitespace above the partner logos. */
+  .includes__grid .card-panel:last-child {
+    justify-content: center;
   }
 }
 

@@ -73,6 +73,12 @@
         <path d="M3 3v18h18" />
         <path d="M18 17V9M13 17V5M8 17v-3" />
       </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+        <path d="M21 3v5h-5" />
+        <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+        <path d="M8 16H3v5" />
+      </symbol>
       <symbol id="i-trending" viewBox="0 0 24 24">
         <path d="M22 7 13.5 15.5l-5-5L2 17" />
         <path d="M16 7h6v6" />
@@ -529,6 +535,23 @@
                   you.</span
                 >
               </div>
+              <div class="why__card why__card--wide">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-refresh" />
+                </svg>
+                <span data-i18n="why.cards.2"
+                  >Start using a clearer process for what to focus on, what to
+                  ignore, and what to do next.</span
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -578,7 +601,7 @@
                 >You have traded before but want more structure</span
               >
             </div>
-            <div class="checklist__row">
+            <div class="checklist__row" data-i18n-optional="who.items.5">
               <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
               <span data-i18n="who.items.5"
                 >You are considering your next step and want more clarity
@@ -778,7 +801,7 @@
         <div class="container">
           <div class="presenter__grid">
             <div class="presenter__photo reveal reveal--left">
-              <img src="assets/presenter.jpg" alt="Ghassan Albohtori" />
+              <img src="assets/presenter.png" alt="Ghassan Albohtori" />
               <div class="presenter__stats">
                 <div class="presenter__stat">
                   <div class="num" data-i18n="presenter.stats.0.num">10+</div>
@@ -833,9 +856,8 @@
               </div>
 
               <div class="presenter__media stagger">
-                <img class="wide" src="assets/media-main.jpg" alt="Ghassan Albohtori" />
-                <img class="small" src="assets/media-2.jpg" alt="Ghassan Albohtori" />
-                <img class="small" src="assets/media-3.jpg" alt="Ghassan Albohtori" />
+                <img src="assets/media-1.jpg" alt="Ghassan Albohtori" />
+                <img src="assets/media-2.jpg" alt="Ghassan Albohtori" />
               </div>
             </div>
           </div>
@@ -858,10 +880,12 @@
                 <li data-i18n="includes.items.1">Presentation slides</li>
                 <li data-i18n="includes.items.2">Market Decision Checklist</li>
                 <li data-i18n="includes.items.3">Weekly Market Routine</li>
-                <li data-i18n="includes.items.4">
+                <li data-i18n="includes.items.4" data-i18n-optional="includes.items.4">
                   Economic Event Prioritization Guide
                 </li>
-                <li data-i18n="includes.items.5">Live Q&amp;A access</li>
+                <li data-i18n="includes.items.5" data-i18n-optional="includes.items.5">
+                  Live Q&amp;A access
+                </li>
               </ul>
               <p class="includes__note" data-i18n="includes.note">
                 These resources are designed to help you keep using the process
