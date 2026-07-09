@@ -310,7 +310,8 @@ input {
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  /* Matches the image's studio-white backdrop so the photo blends in */
+  background: var(--surface);
   padding: 52px 0 0;
 }
 
@@ -337,16 +338,18 @@ input {
   left: -220px;
   background: radial-gradient(
     circle,
-    rgba(0, 71, 187, 0.14),
+    rgba(0, 71, 187, 0.06),
     rgba(0, 71, 187, 0)
   );
 }
 
+/* Kept very faint so the area behind the image stays a uniform surface tone
+   and the photo never shows a colour seam against the background */
 .hero::after {
   right: -180px;
   background: radial-gradient(
     circle,
-    rgba(22, 233, 215, 0.12),
+    rgba(22, 233, 215, 0.035),
     rgba(0, 71, 187, 0)
   );
 }
@@ -397,6 +400,7 @@ input {
 /* Hero visual: a clean rounded photo card. On mobile it sits between the
    copy and the trust bar; on desktop it floats to the right of the copy. */
 .hero__media {
+  position: relative;
   align-self: center;
   width: 100%;
   margin-top: 36px;
@@ -408,25 +412,26 @@ input {
   max-width: 480px;
   height: auto;
   margin: 0 auto;
-  /* Dissolve the image edges into the banner background (no card / shadow) */
-  -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 6%,
-      #000 94%,
-      transparent 100%
+}
+
+/* The subjects reach the left/right edges, so those blend via the matched
+   background colour; only the empty top/bottom are faded into it, which
+   dissolves the photo's rectangle without ghosting the gold bar or chart. */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      to top,
+      rgba(244, 247, 250, 0) 80%,
+      rgba(244, 247, 250, 1) 100%
     ),
-    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 6%,
-      #000 94%,
-      transparent 100%
-    ),
-    linear-gradient(to bottom, transparent 0, #000 5%, #000 95%, transparent 100%);
-  mask-composite: intersect;
+    linear-gradient(
+      to bottom,
+      rgba(244, 247, 250, 0) 90%,
+      rgba(244, 247, 250, 1) 100%
+    );
 }
 
 /* Info card (date / time / online / presenter) */
