@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STARTRADER · Free Live Market Workshop — Qatar</title>
+    <meta
+      name="description"
+      content="A free live workshop in Qatar for people who follow Gold, Oil, and global markets. Not a typical webinar — a structured session on interpreting what drives market movement. Walk in with questions, leave with a clearer approach."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ==================================================================
+         SVG icon sprite — referenced throughout via <use href="#id">.
+         Stroke icons inherit color/stroke from the referencing <svg>.
+         ================================================================== -->
+    <svg
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+    >
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M19.801 10.222C19.931 10.794 20 11.389 20 12C20 16.415 16.415 20 12 20C7.585 20 4 16.415 4 12C4 7.585 7.585 4 12 4C12.923 4 13.809 4.156 14.634 4.444C15.155 4.626 15.725 4.351 15.907 3.83C16.089 3.308 15.814 2.738 15.293 2.556C14.261 2.196 13.153 2 12 2C6.481 2 2 6.481 2 12C2 17.519 6.481 22 12 22C17.519 22 22 17.519 22 12C22 11.237 21.914 10.493 21.752 9.778C21.629 9.24 21.093 8.903 20.555 9.025C20.017 9.147 19.679 9.683 19.801 10.222ZM11 12.586L19.293 4.293C19.683 3.903 20.317 3.903 20.707 4.293C21.097 4.683 21.097 5.317 20.707 5.707L11.707 14.707C11.317 15.098 10.683 15.098 10.293 14.707L7.293 11.707C6.903 11.317 6.903 10.683 7.293 10.293C7.683 9.903 8.317 9.903 8.707 10.293L11 12.586Z"
+          fill="currentColor"
+        />
+      </symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </symbol>
+      <symbol id="i-calendar-check" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4" />
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18" />
+        <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" />
+      </symbol>
+      <symbol id="i-coins" viewBox="0 0 24 24">
+        <circle cx="8" cy="8" r="6" />
+        <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+        <path d="M7 6h1v4M16.71 13.88l.7.71-2.82 2.82" />
+      </symbol>
+      <symbol id="i-barchart" viewBox="0 0 24 24">
+        <path d="M3 3v18h18" />
+        <path d="M18 17V9M13 17V5M8 17v-3" />
+      </symbol>
+      <symbol id="i-trending" viewBox="0 0 24 24">
+        <path d="M22 7 13.5 15.5l-5-5L2 17" />
+        <path d="M16 7h6v6" />
+      </symbol>
+      <symbol id="i-droplet" viewBox="0 0 24 24">
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+      </symbol>
+      <symbol id="i-dollar" viewBox="0 0 24 24">
+        <path d="M12 1v22" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </symbol>
+      <symbol id="i-message" viewBox="0 0 24 24">
+        <path
+          d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        />
+      </symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24">
+        <path d="m6 9 6 6 6-6" />
+      </symbol>
+      <symbol id="i-tick" viewBox="0 0 24 24">
+        <path d="M20 6 9 17l-5-5" />
+      </symbol>
+    </svg>
+
+    <!-- ==================================================================
+         HEADER
+         ================================================================== -->
+    <header class="header">
+      <div class="container header__inner">
+        <a href="#top" class="header__brand" aria-label="STARTRADER home">
+          <img class="header__logo" src="assets/logo.svg" alt="STARTRADER" />
+        </a>
+        <div class="header__actions">
+          <div class="lang">
+            <button
+              type="button"
+              class="lang__trigger"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-label="Select language"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="#i-globe" />
+              </svg>
+              <span class="lang__current" data-i18n="languageName">English</span>
+              <svg
+                class="lang__chev"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="#i-chevron" />
+              </svg>
+            </button>
+
+            <ul class="lang__menu" role="menu" hidden>
+              <li role="none">
+                <button
+                  type="button"
+                  role="menuitem"
+                  lang="en"
+                  data-lang="en"
+                  class="lang__item lang__item--active"
+                >
+                  <span>English</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-tick" />
+                  </svg>
+                </button>
+              </li>
+              <li role="none">
+                <button
+                  type="button"
+                  role="menuitem"
+                  lang="ar"
+                  data-lang="ar"
+                  class="lang__item"
+                >
+                  <span>العربية</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="display: none"
+                  >
+                    <use href="#i-tick" />
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ================================================================
+           HERO
+           ================================================================ -->
+      <section class="hero" id="top">
+        <div class="container">
+          <div class="hero__copy stagger">
+            <span class="pill pill--brand">
+              <span class="pill__dot"></span>
+              <span data-i18n="hero.badge">Free Live Workshop · Qatar</span>
+            </span>
+
+            <h1 class="hero__title">
+              <span data-i18n="hero.title.main"
+                >You've Been Watching the Markets.</span
+              >
+              <span class="accent" data-i18n="hero.title.accent"
+                >Now Know What Matters.</span
+              >
+            </h1>
+
+            <p class="hero__lead" data-i18n="hero.lead">
+              For people who follow Gold, Oil, and global markets and want a
+              clearer way to interpret what is driving market movement.
+            </p>
+
+            <p class="hero__tagline">
+              <span data-i18n="hero.tagline.0">Walk In With Questions.</span>
+              <br />
+              <span data-i18n="hero.tagline.1"
+                >Leave With A Clearer Approach.</span
+              >
+            </p>
+
+            <div class="info-card">
+              <div class="info-item">
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-calendar" />
+                </svg>
+                <span class="info-item__text">
+                  <span class="info-item__label" data-i18n="hero.info.date.label"
+                    >05-08-2026</span
+                  >
+                  <span class="info-item__sub" data-i18n="hero.info.date.sub"
+                    >Wednesday</span
+                  >
+                </span>
+              </div>
+              <span class="info-divider" aria-hidden="true"></span>
+              <div class="info-item">
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-clock" />
+                </svg>
+                <span class="info-item__text">
+                  <span class="info-item__label" data-i18n="hero.info.time.label"
+                    >08:00 PM</span
+                  >
+                  <span class="info-item__sub" data-i18n="hero.info.time.sub"
+                    >(Qatar Time)</span
+                  >
+                </span>
+              </div>
+              <span class="info-divider" aria-hidden="true"></span>
+              <div class="info-item">
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-monitor" />
+                </svg>
+                <span class="info-item__text">
+                  <span
+                    class="info-item__label"
+                    data-i18n="hero.info.online.label"
+                    >Online</span
+                  >
+                  <span class="info-item__sub" data-i18n="hero.info.online.sub"
+                    >Free to attend</span
+                  >
+                </span>
+              </div>
+              <span class="info-divider" aria-hidden="true"></span>
+              <div class="info-item">
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-user" />
+                </svg>
+                <span class="info-item__text">
+                  <span
+                    class="info-item__label"
+                    data-i18n="hero.info.presenter.label"
+                    >Presented by</span
+                  >
+                  <span
+                    class="info-item__sub"
+                    data-i18n="hero.info.presenter.sub"
+                    >Ghassan Albohtori</span
+                  >
+                </span>
+              </div>
+            </div>
+
+            <a href="#register" class="btn btn--primary hero__cta" data-i18n="hero.cta"
+              >Reserve My Free Seat</a
+            >
+          </div>
+
+          <div class="hero__media reveal reveal--right">
+            <img
+              src="assets/hero-banner.jpg"
+              alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
+            />
+          </div>
+
+          <div class="trust reveal">
+            <ul class="trust__list">
+              <li class="trust__point">
+                <svg width="22" height="22" fill="currentColor"><use href="#i-check" /></svg>
+                <span data-i18n="hero.trust.points.0"
+                  >Regulated across multiple jurisdictions including ASIC | FSCA |
+                  CMA | FSA | FSC</span
+                >
+              </li>
+              <li class="trust__point">
+                <svg width="22" height="22" fill="currentColor"><use href="#i-check" /></svg>
+                <span data-i18n="hero.trust.points.1"
+                  >Global Multi-Asset Broker</span
+                >
+              </li>
+              <li class="trust__point">
+                <svg width="22" height="22" fill="currentColor"><use href="#i-check" /></svg>
+                <span data-i18n="hero.trust.points.2"
+                  >Official Partner of the NBA</span
+                >
+              </li>
+              <li class="trust__point">
+                <svg width="22" height="22" fill="currentColor"><use href="#i-check" /></svg>
+                <span data-i18n="hero.trust.points.3"
+                  >Official Partner of Porsche Carrera Cup Middle East</span
+                >
+              </li>
+            </ul>
+            <div class="trust__logos">
+              <img
+                class="nba"
+                src="assets/nba.svg"
+                alt="Official Partner of the NBA"
+              />
+              <img
+                class="porsche"
+                src="assets/porsche.png"
+                alt="Porsche Carrera Cup Middle East partner"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           REGISTRATION FORM
+           ================================================================ -->
+      <section class="section section--dark register" id="register">
+        <div class="container">
+          <form class="form-card reveal">
+            <h2 class="form-card__title" data-i18n="register.title">
+              Reserve Your Free Seat
+            </h2>
+
+            <div class="field">
+              <label for="fullName" data-i18n="register.fullName">Full Name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="Your full name"
+                data-i18n-ph="register.fullNamePlaceholder"
+                required
+              />
+            </div>
+
+            <div class="field field--phone">
+              <label for="mobile" data-i18n="register.mobile">Mobile Number</label>
+              <div class="phone-wrap">
+                <svg
+                  width="26"
+                  height="19"
+                  viewBox="0 0 28 20"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <rect width="28" height="20" rx="2.5" fill="#ffffff" />
+                  <path
+                    d="M10 0h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H10l3-2.22L10 15.55l3-2.22L10 11.11l3-2.22L10 6.66l3-2.22L10 2.22z"
+                    fill="#8A1538"
+                  />
+                  <rect
+                    x="0.5"
+                    y="0.5"
+                    width="27"
+                    height="19"
+                    rx="2.5"
+                    stroke="#e3e8ef"
+                    stroke-width="1"
+                  />
+                </svg>
+                <span class="code" dir="ltr">+974</span>
+                <input
+                  id="mobile"
+                  name="mobile"
+                  type="tel"
+                  inputmode="tel"
+                  placeholder="5000 0000"
+                  data-i18n-ph="register.phonePlaceholder"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email" data-i18n="register.email">Email Address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="your@example.com"
+                data-i18n-ph="register.emailPlaceholder"
+                required
+              />
+            </div>
+
+            <!-- Honeypot: hidden from real users, catches bots. -->
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabindex="-1"
+              autocomplete="off"
+              style="display: none"
+              aria-hidden="true"
+            />
+
+            <p class="form-note" data-i18n="register.note">
+              Enter your correct mobile number so our team can send access
+              details, reminders, and contact you before the session to help you
+              attend smoothly.
+            </p>
+
+            <button type="submit" class="btn btn--primary btn--block">
+              Reserve My Free Seat
+            </button>
+
+            <p class="form-error" role="alert" style="display: none"></p>
+
+            <p class="form-microcopy" data-i18n="register.microcopy">
+              Takes less than 60 seconds to register
+            </p>
+          </form>
+
+          <p class="register__caption" data-i18n="register.caption">
+            Free registration · Live session · Instant confirmation
+          </p>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           WHY THIS WORKSHOP
+           ================================================================ -->
+      <section class="section section--surface">
+        <div class="container">
+          <div class="why__panel reveal">
+            <h2 class="why__title" data-i18n="why.title">Why this workshop</h2>
+            <p class="why__sub" data-i18n="why.subtitle">
+              Market moves can be overwhelming. We can help simplify it
+            </p>
+
+            <div class="why__cards stagger">
+              <div class="why__card">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-coins" />
+                </svg>
+                <span data-i18n="why.cards.0"
+                  >Gold, oil, the dollar, the relationship between different
+                  assets can be difficult to navigate.</span
+                >
+              </div>
+              <div class="why__card">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-barchart" />
+                </svg>
+                <span data-i18n="why.cards.1"
+                  >If you feel confused about the market, this workshop is for
+                  you.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           WHO IS IT FOR
+           ================================================================ -->
+      <section class="section">
+        <div class="container">
+          <div class="who__head reveal">
+            <h2 class="section-title" data-i18n="who.title">Who is it for</h2>
+            <p class="section-subtitle" data-i18n="who.subtitle">
+              This Workshop Is For Market Followers Who Want More Clarity
+            </p>
+          </div>
+
+          <div class="checklist stagger">
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.0"
+                >You follow Gold, Oil, Forex, or global market news</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.1"
+                >You watch market updates but still feel unsure what matters
+                most</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.2"
+                >You do not want to depend on random opinions or signals</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.3"
+                >You want a clear way for reading market movement</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.4"
+                >You have traded before but want more structure</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.items.5"
+                >You are considering your next step and want more clarity
+                first</span
+              >
+            </div>
+          </div>
+
+          <div class="who__tags stagger">
+            <span class="who__tag">
+              <svg width="18" height="18" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.tags.0">No advanced knowledge is required.</span>
+            </span>
+            <span class="who__tag">
+              <svg width="18" height="18" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="who.tags.1"
+                >You just need a better way to deal with market data.</span
+              >
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           WHAT YOU'LL WALK AWAY WITH
+           ================================================================ -->
+      <section class="section">
+        <div class="container">
+          <div class="who__head reveal">
+            <h2 class="section-title" data-i18n="walk.title">
+              What you'll walk away with
+            </h2>
+            <p class="section-subtitle" data-i18n="walk.subtitle">
+              Leave With a Clear Vision of How Markets Move. By the end of the
+              workshop, you will have:
+            </p>
+          </div>
+
+          <div class="checklist stagger">
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="walk.items.0"
+                >A simple process for deciding what deserves your attention</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="walk.items.1"
+                >A clearer way to find useful information about the market</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="walk.items.2"
+                >A practical routine for following Gold, Oil, and economic
+                events</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="walk.items.3"
+                >A stronger understanding of how experienced participants view
+                markets</span
+              >
+            </div>
+            <div class="checklist__row">
+              <svg width="24" height="24" fill="currentColor"><use href="#i-check" /></svg>
+              <span data-i18n="walk.items.4"
+                >More confidence in interpreting market moves</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           INSIDE THE WORKSHOP
+           ================================================================ -->
+      <section class="section section--dark">
+        <div class="container">
+          <div class="inside__head reveal">
+            <h2 class="section-title" data-i18n="inside.title">
+              Inside the workshop
+            </h2>
+            <p class="inside__sub" data-i18n="inside.subtitle">
+              60-Minute Live Workshop
+            </p>
+          </div>
+
+          <div class="inside__list stagger">
+            <div class="inside__row">
+              <span class="inside__icon">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-trending" />
+                </svg>
+              </span>
+              <span data-i18n="inside.rows.0"
+                >Why market information creates confusion, and why more news does
+                not always mean better decisions</span
+              >
+            </div>
+            <div class="inside__row">
+              <span class="inside__icon">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-droplet" />
+                </svg>
+              </span>
+              <span data-i18n="inside.rows.1"
+                >How experienced market participants filter market noise and
+                focus on what matters first</span
+              >
+            </div>
+            <div class="inside__row">
+              <span class="inside__icon">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-dollar" />
+                </svg>
+              </span>
+              <span data-i18n="inside.rows.2"
+                >Applying the process to Gold, Oil, the US dollar, and recent
+                market events</span
+              >
+            </div>
+            <div class="inside__row">
+              <span class="inside__icon">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-calendar-check" />
+                </svg>
+              </span>
+              <span data-i18n="inside.rows.3"
+                >Building a simple market routine you can use before reacting to
+                market moves</span
+              >
+            </div>
+            <div class="inside__row">
+              <span class="inside__icon">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-message" />
+                </svg>
+              </span>
+              <span data-i18n="inside.rows.4">Live Q&amp;A with the analyst</span>
+            </div>
+          </div>
+
+          <div class="inside__cta reveal">
+            <a href="#register" class="btn btn--primary" data-i18n="inside.cta"
+              >Reserve My Free Seat</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           PRESENTER
+           ================================================================ -->
+      <section class="section">
+        <div class="container">
+          <div class="presenter__grid">
+            <div class="presenter__photo reveal reveal--left">
+              <img src="assets/presenter.jpg" alt="Ghassan Albohtori" />
+              <div class="presenter__stats">
+                <div class="presenter__stat">
+                  <div class="num" data-i18n="presenter.stats.0.num">10+</div>
+                  <div class="cap" data-i18n="presenter.stats.0.cap">
+                    Years in markets
+                  </div>
+                </div>
+                <div class="presenter__stat">
+                  <div class="num" data-i18n="presenter.stats.1.num">100s</div>
+                  <div class="cap" data-i18n="presenter.stats.1.cap">
+                    Educational sessions
+                  </div>
+                </div>
+                <div class="presenter__stat">
+                  <div class="num" data-i18n="presenter.stats.2.num">1,000s</div>
+                  <div class="cap" data-i18n="presenter.stats.2.cap">
+                    Followers guided
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="presenter__info reveal reveal--right">
+              <p class="presenter__eyebrow" data-i18n="presenter.eyebrow">
+                Meet Your Presenter
+              </p>
+              <h2 class="presenter__name" data-i18n="presenter.name">
+                Ghassan Albohtori
+              </h2>
+              <p class="presenter__role" data-i18n="presenter.role">
+                Senior Market Analyst · STARTRADER
+              </p>
+
+              <div class="presenter__bio">
+                <p data-i18n="presenter.bio.0">
+                  With more than 10 years of experience in financial markets,
+                  Ghassan has helped thousands of market followers better
+                  understand global economic developments, commodities, and
+                  market behavior.
+                </p>
+                <p data-i18n="presenter.bio.1">
+                  Through hundreds of educational sessions and media appearances,
+                  he has become known for simplifying complex market topics and
+                  helping participants connect market events with real-world
+                  implications.
+                </p>
+                <p data-i18n="presenter.bio.2">
+                  His interactive approach encourages discussion, practical
+                  thinking, and a clearer understanding of how experienced market
+                  participants interpret changing market conditions.
+                </p>
+              </div>
+
+              <div class="presenter__media stagger">
+                <img class="wide" src="assets/media-main.jpg" alt="Ghassan Albohtori" />
+                <img class="small" src="assets/media-2.jpg" alt="Ghassan Albohtori" />
+                <img class="small" src="assets/media-3.jpg" alt="Ghassan Albohtori" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           INCLUDES / ABOUT
+           ================================================================ -->
+      <section class="section section--fade">
+        <div class="container">
+          <div class="includes__grid stagger">
+            <!-- Included with registration -->
+            <div class="card-panel">
+              <h3 class="card-panel__title" data-i18n="includes.title">
+                Included With Your Registration
+              </h3>
+              <ul class="includes__list">
+                <li data-i18n="includes.items.0">Full workshop recording</li>
+                <li data-i18n="includes.items.1">Presentation slides</li>
+                <li data-i18n="includes.items.2">Market Decision Checklist</li>
+                <li data-i18n="includes.items.3">Weekly Market Routine</li>
+                <li data-i18n="includes.items.4">
+                  Economic Event Prioritization Guide
+                </li>
+                <li data-i18n="includes.items.5">Live Q&amp;A access</li>
+              </ul>
+              <p class="includes__note" data-i18n="includes.note">
+                These resources are designed to help you keep using the process
+                after the workshop ends.
+              </p>
+            </div>
+
+            <!-- About STARTRADER -->
+            <div class="card-panel">
+              <h3 class="card-panel__title" data-i18n="about.title">
+                About STARTRADER
+              </h3>
+              <div class="about__text">
+                <p data-i18n="about.paras.0">
+                  STARTRADER is a globally regulated multi-asset broker providing
+                  access to financial markets, trading technology, analyst-led
+                  insights, and market education.
+                </p>
+                <p data-i18n="about.paras.1">
+                  STARTRADER is also an Official Partner of the NBA and Porsche
+                  Carrera Cup Middle East.
+                </p>
+              </div>
+              <div class="about__logos">
+                <img class="nba" src="assets/nba.svg" alt="NBA official partner" />
+                <img
+                  class="porsche"
+                  src="assets/porsche.png"
+                  alt="Porsche Carrera Cup Middle East partner"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           FAQ
+           ================================================================ -->
+      <section class="section">
+        <div class="container">
+          <div class="faq">
+            <h2 class="section-title faq__title reveal" data-i18n="faq.title">
+              Frequently Asked Questions
+            </h2>
+
+            <div class="faq__list stagger">
+              <div class="faq__item" data-open="true">
+                <button class="faq__q" aria-expanded="true">
+                  <span>
+                    <span class="idx">1.</span>
+                    <span data-i18n="faq.items.0.q">Is this workshop free?</span>
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.0.a">
+                      Yes. Registration and attendance are free.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">2.</span>
+                    <span data-i18n="faq.items.1.q"
+                      >Do I need trading experience?</span
+                    >
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.1.a">
+                      No. Basic market interest is enough. The workshop is
+                      designed for people who already follow markets and want a
+                      clearer process.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">3.</span>
+                    <span data-i18n="faq.items.2.q">Who is this workshop for?</span>
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.2.a">
+                      People who follow Gold, Oil, Forex, currencies, or global
+                      market news and want a clearer way to deal with market
+                      noise.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">4.</span>
+                    <span data-i18n="faq.items.3.q"
+                      >Will I receive trading signals?</span
+                    >
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.3.a">
+                      No. This is not a signals session. The workshop is designed
+                      to help you build your own process for reading market
+                      movement.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">5.</span>
+                    <span data-i18n="faq.items.4.q"
+                      >What markets will be discussed?</span
+                    >
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.4.a">
+                      Gold, Oil, the US dollar, and major economic events will be
+                      used as practical examples.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">6.</span>
+                    <span data-i18n="faq.items.5.q">Will there be a recording?</span>
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.5.a">
+                      Yes. Registered attendees will receive the recording after
+                      the session.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">7.</span>
+                    <span data-i18n="faq.items.6.q"
+                      >What language is the workshop in?</span
+                    >
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.6.a">
+                      The workshop will be available in English and Arabic.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="faq__item" data-open="false">
+                <button class="faq__q" aria-expanded="false">
+                  <span>
+                    <span class="idx">8.</span>
+                    <span data-i18n="faq.items.7.q">How will I receive access?</span>
+                  </span>
+                  <span class="faq__toggle" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path class="faq__toggle-v" d="M12 5v14" />
+                      <path d="M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="faq__a">
+                  <div class="faq__a-inner">
+                    <p data-i18n="faq.items.7.a">
+                      Access details and reminders will be sent by email and/or
+                      mobile before the workshop. A STARTRADER team member may
+                      also contact you if support is needed before the session.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           FINAL CTA
+           ================================================================ -->
+      <section class="section section--dark final">
+        <div class="container">
+          <h2 class="final__title reveal" data-i18n="final.title">
+            Markets Keep Moving, Know What Matters.
+          </h2>
+
+          <div class="final__pills stagger">
+            <span class="final__pill" data-i18n="final.pills.0"
+              >Join this free live workshop</span
+            >
+            <span class="final__pill" data-i18n="final.pills.1"
+              >Walk in with market noise.</span
+            >
+            <span class="final__pill" data-i18n="final.pills.2"
+              >Leave with a clearer process for deciding what matters next.</span
+            >
+            <span class="final__pill" data-i18n="final.pills.3"
+              >Registration is free and takes less than a minute.</span
+            >
+          </div>
+
+          <a href="#register" class="btn btn--primary reveal" data-i18n="final.button"
+            >Reserve My Free Seat</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================================================================
+         FOOTER
+         ================================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <img class="footer__logo" src="assets/logo.svg" alt="STARTRADER" />
+        <p class="footer__disclaimer" data-i18n="footer.disclaimer">
+          Trading involves risk. CFD trading is not suitable for all investors.
+          This workshop is for educational purposes only and does not constitute
+          financial advice, investment advice, or a recommendation to buy or sell
+          any financial product.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Persistent mobile-only "Reserve" button -->
+    <a href="#register" class="floating-cta" data-i18n="hero.cta"
+      >Reserve My Free Seat</a
+    >
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
