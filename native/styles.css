@@ -1128,7 +1128,8 @@ input {
      up across sections and the two cards read as a balanced grid. */
   grid-template-columns: minmax(0, 550fr) minmax(0, 620fr);
   gap: 40px;
-  align-items: start;
+  /* Both cards stretch to the same height; content stays top-aligned. */
+  align-items: stretch;
 }
 
 .card-panel {
