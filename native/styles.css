@@ -1198,7 +1198,8 @@ input {
   font-size: 14px;
   line-height: 1.7;
   margin-top: 18px;
-  text-align: center;
+  /* Left in English, right in Arabic (reading side) */
+  text-align: start;
 }
 
 .about__text p + p {
