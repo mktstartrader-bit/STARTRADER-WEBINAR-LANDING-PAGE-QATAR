@@ -525,11 +525,9 @@ input {
   .info-divider {
     display: none;
   }
-  /* Center the hero CTA on mobile */
+  /* Hero CTA is hidden on mobile — the persistent floating CTA covers it */
   .hero__cta {
-    display: flex;
-    width: fit-content;
-    margin-inline: auto;
+    display: none;
   }
 }
 
