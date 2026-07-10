@@ -508,11 +508,9 @@ input {
   .hero {
     padding-bottom: 44px;
   }
+  /* Banner image is desktop-only — hidden on mobile per design */
   .hero__media {
-    margin-top: 28px;
-  }
-  .hero__media img {
-    max-width: 440px;
+    display: none;
   }
   .hero__copy {
     text-align: center;
@@ -839,7 +837,7 @@ input {
   color: var(--ink);
   border-radius: var(--radius);
   padding: 18px 28px;
-  text-align: left;
+  text-align: start;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -1126,8 +1124,10 @@ input {
 
 .includes__grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.25fr;
-  gap: 28px;
+  /* Match the presenter section's column split so the vertical divide lines
+     up across sections and the two cards read as a balanced grid. */
+  grid-template-columns: minmax(0, 550fr) minmax(0, 620fr);
+  gap: 40px;
   align-items: start;
 }
 
@@ -1213,23 +1213,6 @@ input {
 
 .about__logos .porsche {
   height: 42px;
-}
-
-/* Desktop: keep the two panels the same height so they stay balanced, and
-   anchor the About logos to the bottom to fill the shorter card gracefully. */
-@media (min-width: 861px) {
-  .includes__grid {
-    align-items: stretch;
-  }
-  .includes__grid .card-panel {
-    display: flex;
-    flex-direction: column;
-  }
-  /* Center the About STARTRADER card's content vertically so its shorter
-     column doesn't leave whitespace above the partner logos. */
-  .includes__grid .card-panel:last-child {
-    justify-content: center;
-  }
 }
 
 @media (max-width: 860px) {
