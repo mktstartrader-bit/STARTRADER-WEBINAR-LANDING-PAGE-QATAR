@@ -1124,10 +1124,10 @@ input {
 
 .includes__grid {
   display: grid;
-  /* Equal-width cards; each sized to its content so spacing stays even. */
+  /* Equal-width, equal-height cards. */
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .card-panel {
@@ -1165,9 +1165,9 @@ input {
 .includes__list {
   list-style: none;
   margin-top: 22px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .includes__list li {
@@ -1234,20 +1234,26 @@ input {
   height: 42px;
 }
 
-/* Desktop: equal-height cards; push the About logos toward the bottom so the
-   card fills like the Figma design (gap above the logos, not below). */
+/* Desktop: cards are flex columns and the checklist grows to fill the taller
+   (About) card, so both cards end at the same height with evenly-spaced items
+   instead of a dead gap. */
+@media (min-width: 861px) {
+  .includes__grid .card-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .includes__grid .includes__list {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
 @media (max-width: 860px) {
   .includes__grid {
     grid-template-columns: 1fr;
   }
   .card-panel {
     padding: 28px 24px;
-  }
-}
-
-@media (max-width: 560px) {
-  .includes__list {
-    grid-template-columns: 1fr;
   }
 }
 
