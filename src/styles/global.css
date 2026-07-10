@@ -1124,10 +1124,9 @@ input {
 
 .includes__grid {
   display: grid;
-  /* Figma: Included is the wide box (~2fr), About the narrow one (~1fr). */
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 16px;
-  /* Both cards stretch to the same height. */
+  /* Equal-width cards, equal height. */
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
   align-items: stretch;
 }
 
@@ -1164,15 +1163,25 @@ input {
 }
 
 .includes__list {
-  margin-top: 20px;
+  list-style: none;
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 26px;
 }
 
 .includes__list li {
-  list-style: none;
-  padding: 16px 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 15px;
   color: var(--body);
-  border-bottom: 1px solid var(--border);
+  line-height: 1.4;
+}
+
+.includes__list li svg {
+  color: var(--brand);
+  flex-shrink: 0;
 }
 
 .includes__note {
@@ -1231,6 +1240,9 @@ input {
     display: flex;
     flex-direction: column;
   }
+  /* Anchor the closing note / logos to the bottom so any small height
+     difference shows as breathing room, never a blank gap. */
+  .includes__grid .includes__note,
   .includes__grid .about__logos {
     margin-top: auto;
   }
@@ -1242,6 +1254,12 @@ input {
   }
   .card-panel {
     padding: 28px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .includes__list {
+    grid-template-columns: 1fr;
   }
 }
 

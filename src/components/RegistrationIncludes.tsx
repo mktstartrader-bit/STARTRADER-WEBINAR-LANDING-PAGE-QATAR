@@ -1,5 +1,6 @@
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.png";
+import { Check } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
 
 export default function RegistrationIncludes() {
@@ -18,7 +19,10 @@ export default function RegistrationIncludes() {
             <p className="includes__receives">{inc.receives}</p>
             <ul className="includes__list">
               {inc.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  <Check size={20} />
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
             <p className="includes__note">{inc.note}</p>
