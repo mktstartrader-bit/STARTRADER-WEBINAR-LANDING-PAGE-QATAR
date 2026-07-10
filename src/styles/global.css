@@ -1124,10 +1124,10 @@ input {
 
 .includes__grid {
   display: grid;
-  /* Equal-width cards, equal height. */
+  /* Equal-width cards; each sized to its content so spacing stays even. */
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .card-panel {
@@ -1221,8 +1221,8 @@ input {
   align-items: center;
   justify-content: center;
   gap: 32px;
-  margin-top: 28px;
-  padding-top: 22px;
+  margin-top: 40px;
+  padding-top: 28px;
   border-top: 1px solid var(--border);
 }
 
@@ -1236,19 +1236,6 @@ input {
 
 /* Desktop: equal-height cards; push the About logos toward the bottom so the
    card fills like the Figma design (gap above the logos, not below). */
-@media (min-width: 861px) {
-  .includes__grid .card-panel {
-    display: flex;
-    flex-direction: column;
-  }
-  /* Anchor the closing note / logos to the bottom so any small height
-     difference shows as breathing room, never a blank gap. */
-  .includes__grid .includes__note,
-  .includes__grid .about__logos {
-    margin-top: auto;
-  }
-}
-
 @media (max-width: 860px) {
   .includes__grid {
     grid-template-columns: 1fr;
