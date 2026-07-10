@@ -1124,11 +1124,10 @@ input {
 
 .includes__grid {
   display: grid;
-  /* Match the presenter section's column split so the vertical divide lines
-     up across sections and the two cards read as a balanced grid. */
-  grid-template-columns: minmax(0, 550fr) minmax(0, 620fr);
-  gap: 40px;
-  /* Both cards stretch to the same height; content stays top-aligned. */
+  /* Figma: Included is the wide box (~2fr), About the narrow one (~1fr). */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px;
+  /* Both cards stretch to the same height. */
   align-items: stretch;
 }
 
@@ -1223,6 +1222,18 @@ input {
 
 .about__logos .porsche {
   height: 42px;
+}
+
+/* Desktop: equal-height cards; push the About logos toward the bottom so the
+   card fills like the Figma design (gap above the logos, not below). */
+@media (min-width: 861px) {
+  .includes__grid .card-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .includes__grid .about__logos {
+    margin-top: auto;
+  }
 }
 
 @media (max-width: 860px) {
