@@ -137,7 +137,7 @@ const en = {
     title: "About STARTRADER",
     paras: [
       "STARTRADER is a globally regulated multi-asset broker providing access to financial markets, trading technology, analyst-led insights, and market education.",
-      "STARTRADER is also an Official Partner of the NBA and Porsche Carrera Cup Middle East.",
+      "Trusted by clients globally and supported by global partnerships including the NBA and Porsche Carrera Cup Middle East, STARTRADER remains committed to helping traders and market followers better understand financial markets through analyst-led sessions, educational resources, and market insights.",
     ],
   },
 

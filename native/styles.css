@@ -1156,6 +1156,13 @@ input {
   font-weight: 500;
 }
 
+.includes__receives {
+  text-align: center;
+  color: var(--body);
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
 .includes__list {
   margin-top: 20px;
 }
@@ -1174,6 +1181,7 @@ input {
   font-weight: 300;
   color: var(--body);
   margin-top: 16px;
+  text-align: center;
 }
 
 .about__text {
@@ -1181,6 +1189,7 @@ input {
   font-size: 14px;
   line-height: 1.7;
   margin-top: 18px;
+  text-align: center;
 }
 
 .about__text p + p {
