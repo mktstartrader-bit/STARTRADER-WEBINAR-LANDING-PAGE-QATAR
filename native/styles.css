@@ -1227,11 +1227,11 @@ input {
 }
 
 .about__logos .nba {
-  height: 48px;
+  height: 58px;
 }
 
 .about__logos .porsche {
-  height: 42px;
+  height: 70px;
 }
 
 /* Desktop: cards are flex columns and the checklist grows to fill the taller
