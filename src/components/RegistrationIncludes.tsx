@@ -1,5 +1,5 @@
 import nba from "../assets/nba.svg";
-import porsche from "../assets/porsche.png";
+import porsche from "../assets/porsche.webp";
 import { Check } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
 
@@ -37,11 +37,13 @@ export default function RegistrationIncludes() {
               ))}
             </div>
             <div className="about__logos">
-              <img className="nba" src={nba} alt="NBA official partner" />
+              <img className="nba" src={nba} alt="NBA official partner" loading="lazy" decoding="async" />
               <img
                 className="porsche"
                 src={porsche}
                 alt="Porsche Carrera Cup Middle East partner"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

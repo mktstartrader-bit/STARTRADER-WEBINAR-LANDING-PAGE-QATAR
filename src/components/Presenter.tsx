@@ -1,6 +1,6 @@
-import presenter from "../assets/presenter.png";
-import media1 from "../assets/media-1.jpg";
-import media2 from "../assets/media-2.jpg";
+import presenter from "../assets/presenter.webp";
+import media1 from "../assets/media-1.webp";
+import media2 from "../assets/media-2.webp";
 import { useLang } from "../i18n/LanguageContext";
 
 export default function Presenter() {
@@ -12,7 +12,7 @@ export default function Presenter() {
       <div className="container">
         <div className="presenter__grid">
           <div className="presenter__photo reveal reveal--left">
-            <img src={presenter} alt={p.name} />
+            <img src={presenter} alt={p.name} width={820} height={814} loading="lazy" decoding="async" />
             <div className="presenter__stats">
               {p.stats.map((s) => (
                 <div className="presenter__stat" key={s.cap}>
@@ -35,8 +35,8 @@ export default function Presenter() {
             </div>
 
             <div className="presenter__media stagger">
-              <img src={media1} alt={p.name} />
-              <img src={media2} alt={p.name} />
+              <img src={media1} alt={p.name} width={610} height={338} loading="lazy" decoding="async" />
+              <img src={media2} alt={p.name} width={610} height={338} loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

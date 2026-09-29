@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { QatarFlag } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
+import { COUNTRIES, flagUrl } from "../countries";
 import {
   WEB3FORMS_ACCESS_KEY,
   LEAD_CC,
@@ -11,9 +11,11 @@ import {
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function RegistrationForm() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const r = t.register;
   const [status, setStatus] = useState<Status>("idle");
+  const [iso, setIso] = useState(COUNTRIES[0].iso);
+  const country = COUNTRIES.find((c) => c.iso === iso) ?? COUNTRIES[0];
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,9 +29,11 @@ export default function RegistrationForm() {
     data.append("from_name", LEAD_FROM_NAME);
     if (LEAD_CC.length > 0) data.append("cc", LEAD_CC.join(", "));
 
-    // Store the mobile with its country code so the lead is dial-ready.
+    // Send readable values: country name + dial-ready mobile number.
+    data.set("country", country.en);
     const mobile = String(data.get("mobile") ?? "").trim();
-    if (mobile) data.set("mobile", `+974 ${mobile}`);
+    if (mobile) data.set("mobile", `${country.dial} ${mobile}`);
+    data.set("agreedToTerms", "Yes");
 
     setStatus("sending");
     try {
@@ -41,6 +45,7 @@ export default function RegistrationForm() {
       if (json.success) {
         setStatus("success");
         form.reset();
+        setIso(COUNTRIES[0].iso);
       } else {
         setStatus("error");
       }
@@ -61,46 +66,90 @@ export default function RegistrationForm() {
       <div className="container">
         <form className="form-card reveal" onSubmit={handleSubmit}>
           <h2 className="form-card__title">{r.title}</h2>
+          <p className="form-card__sub">{r.subtitle}</p>
 
           <div className="field">
-            <label htmlFor="fullName">{r.fullName}</label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              placeholder={r.fullNamePlaceholder}
-              required
-            />
+            <label htmlFor="country">{r.country}</label>
+            <div className="select-wrap">
+              <img
+                className="flag"
+                src={flagUrl(country.iso)}
+                alt=""
+                width={20}
+                height={15}
+              />
+              <select
+                id="country"
+                name="country"
+                value={iso}
+                onChange={(e) => setIso(e.target.value)}
+              >
+                {COUNTRIES.map((c) => (
+                  <option key={c.iso} value={c.iso}>
+                    {lang === "ar" ? c.ar : c.en}
+                  </option>
+                ))}
+              </select>
+              <svg
+                className="chevron"
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 4.5 6 8l3.5-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </div>
 
-          <div className="field field--phone">
+          <div className="field">
             <label htmlFor="mobile">{r.mobile}</label>
-            <div className="phone-wrap">
-              <QatarFlag size={26} />
-              <span className="code" dir="ltr">
-                +974
+            <div className="phone-row" dir="ltr">
+              <span className="phone-code">
+                <img
+                  className="flag"
+                  src={flagUrl(country.iso)}
+                  alt=""
+                  width={20}
+                  height={15}
+                />
+                {country.dial}
               </span>
               <input
                 id="mobile"
                 name="mobile"
                 type="tel"
                 inputMode="tel"
-                placeholder={r.phonePlaceholder}
+                autoComplete="tel-national"
+                placeholder={country.placeholder}
+                pattern="[0-9 ]{6,15}"
+                title={r.phoneHint}
                 required
               />
             </div>
           </div>
 
-          <div className="field">
-            <label htmlFor="email">{r.email}</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder={r.emailPlaceholder}
-              required
-            />
-          </div>
+          <label className="consent">
+            <input type="checkbox" name="terms" required />
+            <span>
+              {r.consent.before}
+              <a href={r.consent.termsUrl} target="_blank" rel="noopener">
+                {r.consent.terms}
+              </a>
+              {r.consent.and}
+              <a href={r.consent.privacyUrl} target="_blank" rel="noopener">
+                {r.consent.privacy}
+              </a>
+              {r.consent.after}
+            </span>
+          </label>
 
           {/* Honeypot: hidden from real users, catches bots. */}
           <input
@@ -111,8 +160,6 @@ export default function RegistrationForm() {
             style={{ display: "none" }}
             aria-hidden="true"
           />
-
-          <p className="form-note">{r.note}</p>
 
           <button
             type="submit"
@@ -128,10 +175,13 @@ export default function RegistrationForm() {
             </p>
           )}
 
-          <p className="form-microcopy">{r.microcopy}</p>
+          <p className="form-signin">
+            {r.haveAccount}{" "}
+            <a href={r.signInUrl} target="_blank" rel="noopener">
+              {r.signIn}
+            </a>
+          </p>
         </form>
-
-        <p className="register__caption">{r.caption}</p>
       </div>
     </section>
   );

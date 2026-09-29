@@ -1,9 +1,12 @@
 import { Fragment } from "react";
-import heroBanner from "../assets/hero-banner.jpg";
+import heroBanner from "../assets/hero-banner.webp";
 import nba from "../assets/nba.svg";
-import porsche from "../assets/porsche.png";
+import porsche from "../assets/porsche.webp";
 import { Calendar, Clock, Monitor, User, Check } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
+
+const BLANK_GIF =
+  "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 export default function Hero() {
   const { t } = useLang();
@@ -19,7 +22,7 @@ export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="container">
-        <div className="hero__copy stagger">
+        <div className="hero__copy hero-intro">
           <span className="pill pill--brand">
             <span className="pill__dot" />
             {h.badge}
@@ -57,12 +60,19 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="hero__media reveal reveal--right">
+        {/* No scroll-reveal here: this is the LCP image and must paint
+            immediately. The <source> stops mobile (where it's hidden)
+            from downloading it at all. */}
+        <picture className="hero__media hero-intro hero-intro--right">
+          <source media="(max-width: 900px)" srcSet={BLANK_GIF} />
           <img
             src={heroBanner}
             alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
+            width={900}
+            height={1124}
+            {...{ fetchpriority: "high" }}
           />
-        </div>
+        </picture>
 
         <div className="trust reveal">
           <ul className="trust__list">
@@ -74,8 +84,8 @@ export default function Hero() {
             ))}
           </ul>
           <div className="trust__logos">
-            <img className="nba" src={nba} alt={h.trust.nbaAlt} />
-            <img className="porsche" src={porsche} alt={h.trust.porscheAlt} />
+            <img className="nba" src={nba} alt={h.trust.nbaAlt} width={70} height={42} loading="lazy" decoding="async" />
+            <img className="porsche" src={porsche} alt={h.trust.porscheAlt} width={93} height={56} loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

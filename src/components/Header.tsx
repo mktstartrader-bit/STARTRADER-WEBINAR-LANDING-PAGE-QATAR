@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.webp";
 import LanguageMenu from "./LanguageMenu";
 
 export default function Header() {
@@ -16,7 +16,7 @@ export default function Header() {
     <header className={`header${scrolled ? " header--scrolled" : ""}`}>
       <div className="container header__inner">
         <a href="#top" className="header__brand" aria-label="STARTRADER home">
-          <img className="header__logo" src={logo} alt="STARTRADER" />
+          <img className="header__logo" src={logo} alt="STARTRADER" width={160} height={36} {...{ fetchpriority: "high" }} />
         </a>
         <div className="header__actions">
           <LanguageMenu />
