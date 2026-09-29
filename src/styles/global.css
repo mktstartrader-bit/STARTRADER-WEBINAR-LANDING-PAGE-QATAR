@@ -400,6 +400,7 @@ input {
 /* Hero visual: a clean rounded photo card. On mobile it sits between the
    copy and the trust bar; on desktop it floats to the right of the copy. */
 .hero__media {
+  display: block;
   position: relative;
   align-self: center;
   width: 100%;
@@ -508,8 +509,25 @@ input {
   .hero {
     padding-bottom: 44px;
   }
-  /* Banner image is desktop-only — hidden on mobile per design */
+  /* Banner image sits beneath the info card on mobile, cropped to the
+     subjects (the photo has a lot of empty white above them) with its
+     edges feathered into the page background. */
   .hero__media {
+    max-width: 380px;
+    margin: 24px auto 0;
+  }
+  .hero__media img {
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    object-position: 50% 75%;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
+    mask-composite: intersect;
+  }
+  .hero__media::after {
     display: none;
   }
   .hero__copy {
@@ -1821,12 +1839,6 @@ input {
    HERO INTRO — pure-CSS entrance so the above-the-fold content paints on
    first render, without waiting for JavaScript (keeps LCP fast).
    ========================================================================== */
-picture.hero__media {
-  display: block;
-}
-
-
-
 .hero-intro--right {
   animation: hero-in-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }

@@ -5,9 +5,6 @@ import porsche from "../assets/porsche.webp";
 import { Calendar, Clock, Monitor, User, Check } from "./Icons";
 import { useLang } from "../i18n/LanguageContext";
 
-const BLANK_GIF =
-  "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-
 export default function Hero() {
   const { t } = useLang();
   const h = t.hero;
@@ -61,10 +58,8 @@ export default function Hero() {
         </div>
 
         {/* No scroll-reveal here: this is the LCP image and must paint
-            immediately. The <source> stops mobile (where it's hidden)
-            from downloading it at all. */}
-        <picture className="hero__media hero-intro hero-intro--right">
-          <source media="(max-width: 900px)" srcSet={BLANK_GIF} />
+            immediately. */}
+        <div className="hero__media hero-intro hero-intro--right">
           <img
             src={heroBanner}
             alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
@@ -72,7 +67,7 @@ export default function Hero() {
             height={1124}
             {...{ fetchpriority: "high" }}
           />
-        </picture>
+        </div>
 
         <div className="trust reveal">
           <ul className="trust__list">
