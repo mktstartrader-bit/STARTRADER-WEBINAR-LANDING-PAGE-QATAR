@@ -329,16 +329,18 @@ input {
   width: 720px;
   height: 800px;
   border-radius: 50%;
-  filter: blur(90px);
   pointer-events: none;
   z-index: 0;
 }
 
 .hero::before {
   left: -220px;
+  /* Soft edge comes from the gradient itself — no blur() filter, which
+     forced an expensive GPU pass on every frame. */
   background: radial-gradient(
-    circle,
+    closest-side,
     rgba(0, 71, 187, 0.06),
+    rgba(0, 71, 187, 0.03) 45%,
     rgba(0, 71, 187, 0)
   );
 }
@@ -348,8 +350,9 @@ input {
 .hero::after {
   right: -180px;
   background: radial-gradient(
-    circle,
+    closest-side,
     rgba(22, 233, 215, 0.035),
+    rgba(22, 233, 215, 0.018) 45%,
     rgba(0, 71, 187, 0)
   );
 }
@@ -1517,7 +1520,6 @@ input {
 .reveal {
   transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
@@ -1546,7 +1548,6 @@ input {
 .stagger > * {
   transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: opacity, transform;
 }
 
 .stagger.is-visible > * {
@@ -1600,26 +1601,9 @@ input {
   opacity: 0.72;
 }
 
-/* Hero — slow ambient glow */
-.hero::before {
-  animation: glowPulse 9s ease-in-out infinite;
-}
-
-.hero::after {
-  animation: glowPulse 12s ease-in-out infinite reverse;
-}
-
-@keyframes glowPulse {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.09);
-  }
-}
+/* Hero ambient glow is static: an endless pulse in the first viewport kept
+   the page from ever settling visually (hurting Speed Index) for a change
+   too faint to notice. */
 
 /* Buttons */
 .btn:active {
