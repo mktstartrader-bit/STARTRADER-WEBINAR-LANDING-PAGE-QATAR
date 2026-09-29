@@ -1,6 +1,9 @@
 import { Fragment } from "react";
 import heroBanner from "../assets/hero-banner.webp";
 import heroBannerAvif from "../assets/hero-banner.avif";
+// Mobile crop has the edge feathering baked in (no CSS mask to composite).
+import heroMobileAvif from "../assets/hero-banner-mobile.avif";
+import heroMobileWebp from "../assets/hero-banner-mobile.webp";
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.webp";
 import { Calendar, Clock, Monitor, User, Check } from "./Icons";
@@ -62,6 +65,16 @@ export default function Hero() {
             paint in its final state immediately. */}
         <div className="hero__media">
           <picture>
+            <source
+              media="(max-width: 900px)"
+              srcSet={heroMobileAvif}
+              type="image/avif"
+            />
+            <source
+              media="(max-width: 900px)"
+              srcSet={heroMobileWebp}
+              type="image/webp"
+            />
             <source srcSet={heroBannerAvif} type="image/avif" />
             <img
               src={heroBanner}

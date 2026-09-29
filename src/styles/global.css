@@ -183,8 +183,6 @@ input {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12.5px);
-  -webkit-backdrop-filter: blur(12.5px);
   border-bottom: 1px solid rgba(218, 227, 237, 0.6);
 }
 
@@ -446,8 +444,6 @@ input {
 .info-card {
   margin-top: 28px;
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 20px 28px;
@@ -516,23 +512,15 @@ input {
   .hero {
     padding-bottom: 44px;
   }
-  /* Banner image sits beneath the info card on mobile, cropped to the
-     subjects (the photo has a lot of empty white above them) with its
-     edges feathered into the page background. */
+  /* Banner image sits beneath the info card on mobile. It uses a
+     dedicated crop (hero-banner-mobile) with the edge fade baked into the
+     pixels, so no CSS mask has to be composited. */
   .hero__media {
     max-width: 380px;
     margin: 24px auto 0;
   }
   .hero__media img {
     aspect-ratio: 5 / 4;
-    object-fit: cover;
-    object-position: 50% 75%;
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
-      linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
-      linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
-    mask-composite: intersect;
   }
   .hero__media::after {
     display: none;
@@ -614,8 +602,6 @@ input {
   position: relative;
   z-index: 1;
   background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
@@ -1586,7 +1572,12 @@ input {
     border-color 0.3s ease;
 }
 
+/* Frosted glass only once content scrolls beneath the header — at the top it
+   sits on plain white, where the blur is invisible but still costs a GPU
+   pass during the first paint. */
 .header--scrolled {
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
   background: rgba(255, 255, 255, 0.92);
   border-bottom-color: var(--border);
   box-shadow: 0 8px 30px -16px rgba(13, 13, 75, 0.35);
