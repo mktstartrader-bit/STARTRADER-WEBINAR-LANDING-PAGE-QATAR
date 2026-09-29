@@ -96,8 +96,8 @@ export default function Hero() {
             ))}
           </ul>
           <div className="trust__logos">
-            <img className="nba" src={nba} alt={h.trust.nbaAlt} width={70} height={42} loading="lazy" decoding="async" />
-            <img className="porsche" src={porsche} alt={h.trust.porscheAlt} width={93} height={56} loading="lazy" decoding="async" />
+            <img className="nba" src={nba} alt={h.trust.nbaAlt} width={70} height={42} decoding="async" />
+            <img className="porsche" src={porsche} alt={h.trust.porscheAlt} width={93} height={56} decoding="async" />
           </div>
         </div>
       </div>
