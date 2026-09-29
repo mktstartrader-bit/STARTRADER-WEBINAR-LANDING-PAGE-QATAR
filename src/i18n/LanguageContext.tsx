@@ -1,28 +1,45 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
-import { translations, type Lang } from "./translations";
+import {
+  en,
+  getTranslation,
+  loadTranslation,
+  type Lang,
+  type Translation,
+} from "./translations";
 
 type LanguageContextValue = {
   lang: Lang;
   dir: "ltr" | "rtl";
-  t: (typeof translations)["en"];
+  t: Translation;
   setLang: (lang: Lang) => void;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-const STORAGE_KEY = "startrader-lang";
+export const STORAGE_KEY = "startrader-lang";
 
-function getInitialLang(): Lang {
+export function getSavedLang(): Lang {
   if (typeof window === "undefined") return "en";
-  const saved = window.localStorage.getItem(STORAGE_KEY);
-  return saved === "ar" ? "ar" : "en";
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) === "ar" ? "ar" : "en";
+  } catch {
+    return "en";
+  }
+}
+
+// Start in the saved language only if its copy is already loaded (main.tsx
+// preloads Arabic before the first render when it was the saved choice).
+function getInitialLang(): Lang {
+  const saved = getSavedLang();
+  return getTranslation(saved) ? saved : "en";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -40,14 +57,25 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, [lang, dir]);
 
+  // Switching fetches the other language's copy on first use, then swaps in
+  // place — no page reload, so URL params and form input are kept.
+  const setLang = useCallback((next: Lang) => {
+    loadTranslation(next).then(
+      () => setLangState(next),
+      () => {
+        /* chunk failed to load (offline) — stay on the current language */
+      }
+    );
+  }, []);
+
   const value = useMemo<LanguageContextValue>(
     () => ({
       lang,
       dir,
-      t: translations[lang],
-      setLang: setLangState,
+      t: getTranslation(lang) ?? en,
+      setLang,
     }),
-    [lang, dir]
+    [lang, dir, setLang]
   );
 
   return (

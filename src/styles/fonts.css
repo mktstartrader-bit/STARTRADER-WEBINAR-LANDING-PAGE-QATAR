@@ -1,5 +1,6 @@
 /* Self-hosted web fonts (from Google Fonts) — same-origin, no third-party
-   connections. Plus Jakarta Sans is a variable font (300–700 in one file). */
+   connections. Plus Jakarta Sans is a variable font (300–700 in one file);
+   the latin files are subset to the characters the page uses. */
 @font-face {
   font-family: "Plus Jakarta Sans";
   font-style: italic;

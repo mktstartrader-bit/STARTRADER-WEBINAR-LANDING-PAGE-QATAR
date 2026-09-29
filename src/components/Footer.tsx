@@ -1,5 +1,7 @@
-import logo from "../assets/logo.webp";
 import { useLang } from "../i18n/LanguageContext";
+
+// Logo lives in public/ so it stays one small cacheable file (not inlined).
+const logo = "/logo.png";
 
 export default function Footer() {
   const { t } = useLang();

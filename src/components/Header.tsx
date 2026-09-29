@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/logo.webp";
 import LanguageMenu from "./LanguageMenu";
+
+// Logo lives in public/ so it stays one small cacheable file (not inlined).
+const logo = "/logo.png";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);

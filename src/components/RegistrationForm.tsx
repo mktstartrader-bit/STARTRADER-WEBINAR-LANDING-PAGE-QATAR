@@ -77,6 +77,8 @@ export default function RegistrationForm() {
                 alt=""
                 width={20}
                 height={15}
+                loading="lazy"
+                decoding="async"
               />
               <select
                 id="country"
@@ -119,6 +121,8 @@ export default function RegistrationForm() {
                   alt=""
                   width={20}
                   height={15}
+                  loading="lazy"
+                  decoding="async"
                 />
                 {country.dial}
               </span>

@@ -407,6 +407,10 @@ input {
   margin-top: 36px;
 }
 
+.hero__media picture {
+  display: contents;
+}
+
 .hero__media img {
   display: block;
   width: 100%;
@@ -1275,11 +1279,16 @@ input {
 
 .includes__note {
   font-size: 12px;
-  font-style: italic;
   font-weight: 300;
   color: var(--body);
   margin-top: 16px;
   text-align: center;
+}
+
+/* Italic is applied once the card is revealed, so the italic font file isn't
+   requested during the initial render (main.tsx warms it up when idle). */
+.includes__grid.is-visible .includes__note {
+  font-style: italic;
 }
 
 .about__text {
@@ -1836,29 +1845,12 @@ input {
 }
 
 /* ==========================================================================
-   HERO INTRO — pure-CSS entrance so the above-the-fold content paints on
-   first render, without waiting for JavaScript (keeps LCP fast).
+   RENDERING — sections below the registration form are skipped by the
+   browser (no layout/paint, no font or image work) until they approach the
+   viewport. `auto` remembers each section's real height once rendered.
    ========================================================================== */
-.hero-intro--right {
-  animation: hero-in-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
-}
-
-@keyframes hero-in {
-  from {
-    opacity: 0.001;
-    transform: translateY(14px);
-  }
-}
-
-@keyframes hero-in-right {
-  from {
-    opacity: 0.001;
-    transform: translateX(24px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-intro {
-    animation: none;
-  }
+main > .section:not(.register),
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
 }

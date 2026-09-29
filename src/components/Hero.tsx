@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import heroBanner from "../assets/hero-banner.webp";
+import heroBannerAvif from "../assets/hero-banner.avif";
 import nba from "../assets/nba.svg";
 import porsche from "../assets/porsche.webp";
 import { Calendar, Clock, Monitor, User, Check } from "./Icons";
@@ -19,7 +20,7 @@ export default function Hero() {
   return (
     <section className="hero" id="top">
       <div className="container">
-        <div className="hero__copy hero-intro">
+        <div className="hero__copy">
           <span className="pill pill--brand">
             <span className="pill__dot" />
             {h.badge}
@@ -57,16 +58,19 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* No scroll-reveal here: this is the LCP image and must paint
-            immediately. */}
-        <div className="hero__media hero-intro hero-intro--right">
-          <img
-            src={heroBanner}
-            alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
-            width={900}
-            height={1124}
-            {...{ fetchpriority: "high" }}
-          />
+        {/* No entrance animation: this is in the first viewport and must
+            paint in its final state immediately. */}
+        <div className="hero__media">
+          <picture>
+            <source srcSet={heroBannerAvif} type="image/avif" />
+            <img
+              src={heroBanner}
+              alt="Gold bar, oil barrel and a glass globe resting on a market price chart"
+              width={900}
+              height={1124}
+              {...{ fetchpriority: "high" }}
+            />
+          </picture>
         </div>
 
         <div className="trust reveal">
