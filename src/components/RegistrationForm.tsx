@@ -29,10 +29,14 @@ export default function RegistrationForm() {
     data.append("from_name", LEAD_FROM_NAME);
     if (LEAD_CC.length > 0) data.append("cc", LEAD_CC.join(", "));
 
-    // Send readable values: country name + dial-ready mobile number.
-    data.set("country", country.en);
+    // Send readable values: country name + dial-ready mobile number. Read the
+    // country from the submitted form itself (not component state), so a
+    // change made just before submitting can never be missed.
+    const picked =
+      COUNTRIES.find((c) => c.iso === data.get("country")) ?? country;
+    data.set("country", picked.en);
     const mobile = String(data.get("mobile") ?? "").trim();
-    if (mobile) data.set("mobile", `${country.dial} ${mobile}`);
+    if (mobile) data.set("mobile", `${picked.dial} ${mobile}`);
     data.set("agreedToTerms", "Yes");
 
     setStatus("sending");
