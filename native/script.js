@@ -32,7 +32,7 @@
         tagline: ["Walk In With Questions.", "Leave With A Clearer Approach."],
         cta: "Reserve My Free Seat",
         info: {
-          date: { label: "05-08-2026", sub: "Wednesday" },
+          date: { label: "29-09-2026", sub: "Tuesday" },
           time: { label: "08:00 PM", sub: "(Qatar Time)" },
           online: { label: "Online", sub: "Free to attend" },
           presenter: { label: "Presented by", sub: "Ghassan Albohtori" },
@@ -216,7 +216,7 @@
         ],
         cta: "احجز مقعدك المجاني",
         info: {
-          date: { label: "05-08-2026", sub: "الأربعاء" },
+          date: { label: "29-09-2026", sub: "الثلاثاء" },
           time: { label: "08:00 مساءً", sub: "بتوقيت قطر" },
           online: { label: "أونلاين", sub: "حضور مجاني" },
           presenter: { label: "مقدمة من قبل", sub: "غسان البحتري" },
