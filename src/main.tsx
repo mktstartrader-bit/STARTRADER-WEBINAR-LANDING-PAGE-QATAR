@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import "./styles/fonts.css";
 import "./styles/global.css";
 
 const container = document.getElementById("root")!;

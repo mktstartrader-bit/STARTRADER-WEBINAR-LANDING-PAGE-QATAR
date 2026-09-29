@@ -5,7 +5,8 @@ import { useEffect } from "react";
  *
  * Observes every element carrying a `.reveal` or `.stagger` class and adds
  * `.is-visible` the first time it enters the viewport, which triggers the CSS
- * entrance transitions. Honours `prefers-reduced-motion` by showing everything
+ * entrance transitions. Hidden states are gated on `html.reveal-on`, so the
+ * pre-rendered page is fully visible before this runs. Honours `prefers-reduced-motion` by showing everything
  * immediately, and degrades gracefully where IntersectionObserver is missing.
  */
 export function useScrollReveal() {
@@ -22,6 +23,15 @@ export function useScrollReveal() {
       nodes.forEach((n) => n.classList.add("is-visible"));
       return;
     }
+
+    // Anything already on screen stays as painted (no hide-then-animate),
+    // then the hidden states are switched on for everything below the fold.
+    const vh = window.innerHeight;
+    nodes.forEach((n) => {
+      const { top, bottom } = n.getBoundingClientRect();
+      if (top < vh && bottom > 0) n.classList.add("is-visible");
+    });
+    document.documentElement.classList.add("reveal-on");
 
     const observer = new IntersectionObserver(
       (entries) => {

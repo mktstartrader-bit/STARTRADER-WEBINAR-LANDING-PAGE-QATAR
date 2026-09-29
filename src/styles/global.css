@@ -1479,9 +1479,15 @@ input {
    ========================================================================== */
 
 /* Single-element entrance */
-.reveal {
+/* Hidden states only apply once JS adds .reveal-on to <html> — after it has
+   marked everything already on screen as visible. So pre-rendered content in
+   the first viewport paints immediately and never waits on JavaScript. */
+.reveal-on .reveal:not(.is-visible) {
   opacity: 0;
   transform: translateY(28px);
+}
+
+.reveal {
   transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: opacity, transform;
@@ -1496,18 +1502,21 @@ input {
    Mobile keeps the safe vertical fade so a pre-animation transform can never
    push a full-width element sideways and create horizontal overflow. */
 @media (min-width: 901px) {
-  .reveal.reveal--left:not(.is-visible) {
+  .reveal-on .reveal.reveal--left:not(.is-visible) {
     transform: translateX(-42px);
   }
-  .reveal.reveal--right:not(.is-visible) {
+  .reveal-on .reveal.reveal--right:not(.is-visible) {
     transform: translateX(42px);
   }
 }
 
 /* Sequenced children */
-.stagger > * {
+.reveal-on .stagger:not(.is-visible) > * {
   opacity: 0;
   transform: translateY(22px);
+}
+
+.stagger > * {
   transition: opacity 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: opacity, transform;
@@ -1816,13 +1825,10 @@ picture.hero__media {
   display: block;
 }
 
-.hero-intro {
-  animation: hero-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+
 
 .hero-intro--right {
-  animation-name: hero-in-right;
-  animation-delay: 0.08s;
+  animation: hero-in-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 
 @keyframes hero-in {

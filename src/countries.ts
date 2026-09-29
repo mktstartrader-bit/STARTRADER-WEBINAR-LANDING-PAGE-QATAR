@@ -29,4 +29,5 @@ export const COUNTRIES: Country[] = [
   { iso: "gb", dial: "+44", en: "United Kingdom", ar: "المملكة المتحدة", placeholder: "7XXX XXXXXX" },
 ];
 
-export const flagUrl = (iso: string) => `https://flagcdn.com/w40/${iso}.png`;
+// Flags are self-hosted in public/flags (40px-wide PNGs from flagcdn.com).
+export const flagUrl = (iso: string) => `/flags/${iso}.png`;
