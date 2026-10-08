@@ -47,9 +47,26 @@ window.STARTRADER_I18N_AR = {
   "register": {
     "title": "سجّل الآن",
     "subtitle": "احجز مقعدك في الندوة القادمة",
-    "country": "الدولة / المنطقة",
-    "mobile": "رقم الهاتف",
-    "phoneHint": "أدخل رقم هاتف صحيحاً (أرقام فقط)",
+    "name": "الاسم الكامل",
+    "namePlaceholder": "أدخل اسمك الكامل",
+    "mobile": "رقم الجوال القطري",
+    "mobilePlaceholder": "XXXX XXXX",
+    "experience": "ما الذي يصف خبرتك في التداول بشكل أفضل؟",
+    "experienceOptions": {
+      "current": "أتداول حالياً",
+      "former": "تداولت سابقاً، لكن ليس حالياً",
+      "new": "أنا جديد في التداول"
+    },
+    "errors": {
+      "nameRequired": "يرجى إدخال اسمك الكامل.",
+      "nameInvalid": "يرجى استخدام الأحرف فقط (حرفان على الأقل).",
+      "mobileRequired": "يرجى إدخال رقم جوالك القطري.",
+      "mobileLength": "أدخل الرقم المكوّن من 8 أرقام بعد \u2066+974\u2069.",
+      "mobilePrefix": "تبدأ أرقام الجوال القطرية بـ 3 أو 5 أو 6 أو 7.",
+      "experienceRequired": "يرجى اختيار أحد الخيارات.",
+      "consentRequired": "يرجى الموافقة على الشروط للمتابعة."
+    },
+    "duplicate": "رقم الجوال هذا مسجّل بالفعل في الندوة.",
     "consent": {
       "before": "أوافق على ",
       "terms": "الشروط والأحكام",
@@ -59,10 +76,14 @@ window.STARTRADER_I18N_AR = {
       "privacyUrl": "https://www.startrader.com/privacy-policy/",
       "after": " الخاصة بـ STARTRADER. وأدرك أن تداول عقود الفروقات ينطوي على مستوى عالٍ من المخاطر وقد لا يكون مناسباً لجميع المستثمرين."
     },
-    "button": "إنشاء حساب",
-    "sending": "جارٍ الإرسال…",
-    "submitted": "تم تسجيلك ✓",
+    "button": "سجّل الآن",
+    "sending": "جارٍ التسجيل…",
     "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "success": {
+      "title": "تم تسجيلك بنجاح!",
+      "body": "شكراً لك يا {name}. تم تأكيد مقعدك في الورشة المباشرة.",
+      "detail": "سنرسل تفاصيل الانضمام إلى الرقم {phone}."
+    },
     "haveAccount": "لديك حساب بالفعل؟",
     "signIn": "تسجيل الدخول",
     "signInUrl": "https://myaccount.startrader.com/login"

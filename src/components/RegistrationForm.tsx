@@ -1,149 +1,278 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useLang } from "../i18n/LanguageContext";
-import { COUNTRIES, flagUrl } from "../countries";
+import { REGISTER_ENDPOINT } from "../leadConfig";
+import { Check } from "./Icons";
 import {
-  WEB3FORMS_ACCESS_KEY,
-  LEAD_CC,
-  LEAD_SUBJECT,
-  LEAD_FROM_NAME,
-} from "../leadConfig";
+  EXPERIENCE_OPTIONS,
+  QATAR_DIAL,
+  cleanName,
+  formatMobile,
+  normalizeMobile,
+  validateRegistration,
+  type RegisterResponse,
+  type RegistrationInput,
+} from "../registration";
 
-type Status = "idle" | "sending" | "success" | "error";
+type Status = "idle" | "sending" | "success";
+type Field = keyof RegistrationInput;
+
+// Campaign parameters captured with every registration.
+const TRACKING_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "fbclid",
+] as const;
+
+function readTracking(): Record<string, string> {
+  const out: Record<string, string> = {};
+  try {
+    const params = new URLSearchParams(window.location.search);
+    for (const key of TRACKING_KEYS) {
+      const value = params.get(key);
+      if (value) out[key] = value.slice(0, 200);
+    }
+  } catch {
+    /* ignore */
+  }
+  return out;
+}
 
 export default function RegistrationForm() {
   const { t, lang } = useLang();
   const r = t.register;
+
+  const [fullName, setFullName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [experience, setExperience] = useState("");
+  const [consent, setConsent] = useState(false);
+  const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
   const [status, setStatus] = useState<Status>("idle");
-  const [iso, setIso] = useState(COUNTRIES[0].iso);
-  const country = COUNTRIES.find((c) => c.iso === iso) ?? COUNTRIES[0];
+  const [duplicate, setDuplicate] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [confirmed, setConfirmed] = useState({ name: "", phone: "" });
+  const successRef = useRef<HTMLHeadingElement>(null);
+
+  const input: RegistrationInput = { fullName, mobile, experience, consent };
+  const errors = validateRegistration(input);
+  const isValid = Object.keys(errors).length === 0 && !duplicate;
+
+  const touch = (field: Field) =>
+    setTouched((prev) => (prev[field] ? prev : { ...prev, [field]: true }));
+  const errorFor = (field: Field) =>
+    touched[field] && errors[field] ? r.errors[errors[field]!] : null;
+
+  useEffect(() => {
+    if (status !== "success") return;
+    successRef.current?.focus({ preventScroll: true });
+    successRef.current
+      ?.closest(".form-card")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [status]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (status === "sending" || status === "success") return;
+    if (status !== "idle") return;
+    setTouched({ fullName: true, mobile: true, experience: true, consent: true });
+    if (!isValid) return;
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const honeypot = (form.elements.namedItem("website") as HTMLInputElement)
+      ?.value;
 
-    data.append("access_key", WEB3FORMS_ACCESS_KEY);
-    data.append("subject", LEAD_SUBJECT);
-    data.append("from_name", LEAD_FROM_NAME);
-    if (LEAD_CC.length > 0) data.append("cc", LEAD_CC.join(", "));
-
-    // Send readable values: country name + dial-ready mobile number. Read the
-    // country from the submitted form itself (not component state), so a
-    // change made just before submitting can never be missed.
-    const picked =
-      COUNTRIES.find((c) => c.iso === data.get("country")) ?? country;
-    data.set("country", picked.en);
-    const mobile = String(data.get("mobile") ?? "").trim();
-    if (mobile) data.set("mobile", `${picked.dial} ${mobile}`);
-    data.set("agreedToTerms", "Yes");
-
+    setFailed(false);
     setStatus("sending");
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: data,
+    const name = cleanName(fullName);
+    const tracking = readTracking();
+    const succeed = () => {
+      setConfirmed({
+        name: name.split(" ")[0],
+        phone: `${QATAR_DIAL} ${formatMobile(mobile)}`,
       });
-      const json = await res.json();
-      if (json.success) {
-        setStatus("success");
-        form.reset();
-        setIso(COUNTRIES[0].iso);
-      } else {
-        setStatus("error");
-      }
+      setStatus("success");
+    };
+
+    let json: RegisterResponse | null = null;
+    try {
+      const res = await fetch(REGISTER_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: name,
+          mobile,
+          experience,
+          consent,
+          language: lang,
+          pageUrl: window.location.href.slice(0, 500),
+          referrer: document.referrer.slice(0, 500),
+          tracking,
+          website: honeypot ?? "",
+        }),
+      });
+      json = (await res.json().catch(() => null)) as RegisterResponse | null;
     } catch {
-      setStatus("error");
+      json = null;
     }
+
+    if (json?.ok) return succeed();
+    if (json && !json.ok && json.code === "duplicate") {
+      setDuplicate(true);
+      setStatus("idle");
+      return;
+    }
+    setFailed(true);
+    setStatus("idle");
   }
 
-  const buttonLabel =
-    status === "sending"
-      ? r.sending
-      : status === "success"
-        ? r.submitted
-        : r.button;
+  if (status === "success") {
+    return (
+      <section className="section section--dark register" id="register">
+        <div className="container">
+          <div className="form-card form-card--success" role="status">
+            <span className="form-success__icon" aria-hidden="true">
+              <Check size={28} />
+            </span>
+            <h2 className="form-card__title" ref={successRef} tabIndex={-1}>
+              {r.success.title}
+            </h2>
+            <p className="form-success__body">
+              {r.success.body.replace("{name}", confirmed.name)}
+            </p>
+            <p className="form-success__detail">
+              {r.success.detail.split("{phone}")[0]}
+              <bdi dir="ltr">{confirmed.phone}</bdi>
+              {r.success.detail.split("{phone}")[1]}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const nameError = errorFor("fullName");
+  const mobileError = duplicate ? r.duplicate : errorFor("mobile");
+  const experienceError = errorFor("experience");
+  const consentError = errorFor("consent");
 
   return (
     <section className="section section--dark register" id="register">
       <div className="container">
-        <form className="form-card reveal" onSubmit={handleSubmit}>
+        <form className="form-card reveal" onSubmit={handleSubmit} noValidate>
           <h2 className="form-card__title">{r.title}</h2>
           <p className="form-card__sub">{r.subtitle}</p>
 
-          <div className="field">
-            <label htmlFor="country">{r.country}</label>
-            <div className="select-wrap">
-              <img
-                className="flag"
-                src={flagUrl(country.iso)}
-                alt=""
-                width={20}
-                height={15}
-                decoding="async"
-              />
-              <select
-                id="country"
-                name="country"
-                value={iso}
-                onChange={(e) => setIso(e.target.value)}
-              >
-                {COUNTRIES.map((c) => (
-                  <option key={c.iso} value={c.iso}>
-                    {lang === "ar" ? c.ar : c.en}
-                  </option>
-                ))}
-              </select>
-              <svg
-                className="chevron"
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2.5 4.5 6 8l3.5-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+          <div className={`field${nameError ? " field--invalid" : ""}`}>
+            <label htmlFor="fullName">{r.name}</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              autoComplete="name"
+              autoCapitalize="words"
+              enterKeyHint="next"
+              maxLength={100}
+              placeholder={r.namePlaceholder}
+              value={fullName}
+              onInput={(e) => setFullName(e.currentTarget.value)}
+              onBlur={() => fullName && touch("fullName")}
+              aria-invalid={nameError ? true : undefined}
+              aria-describedby={nameError ? "fullName-error" : undefined}
+              required
+            />
+            {nameError && (
+              <p className="field__error" id="fullName-error">
+                {nameError}
+              </p>
+            )}
           </div>
 
-          <div className="field">
+          <div className={`field${mobileError ? " field--invalid" : ""}`}>
             <label htmlFor="mobile">{r.mobile}</label>
             <div className="phone-row" dir="ltr">
               <span className="phone-code">
                 <img
                   className="flag"
-                  src={flagUrl(country.iso)}
+                  src="/flags/qa.png"
                   alt=""
                   width={20}
                   height={15}
                   decoding="async"
                 />
-                {country.dial}
+                {QATAR_DIAL}
               </span>
               <input
                 id="mobile"
                 name="mobile"
                 type="tel"
-                inputMode="tel"
+                inputMode="numeric"
                 autoComplete="tel-national"
-                placeholder={country.placeholder}
-                pattern="[0-9 ]{6,15}"
-                title={r.phoneHint}
+                enterKeyHint="next"
+                placeholder={r.mobilePlaceholder}
+                value={mobile}
+                onInput={(e) => {
+                  const digits = normalizeMobile(e.currentTarget.value);
+                  // Keep the field showing only accepted digits.
+                  e.currentTarget.value = digits;
+                  setMobile(digits);
+                  setDuplicate(false);
+                  if (digits.length === 8) touch("mobile");
+                }}
+                onBlur={() => mobile && touch("mobile")}
+                aria-invalid={mobileError ? true : undefined}
+                aria-describedby={mobileError ? "mobile-error" : undefined}
                 required
               />
             </div>
+            {mobileError && (
+              <p className="field__error" id="mobile-error" role={duplicate ? "alert" : undefined}>
+                {mobileError}
+              </p>
+            )}
           </div>
 
-          <label className="consent">
-            <input type="checkbox" name="terms" required />
+          <fieldset
+            className={`field choice${experienceError ? " field--invalid" : ""}`}
+            aria-describedby={experienceError ? "experience-error" : undefined}
+          >
+            <legend>{r.experience}</legend>
+            {EXPERIENCE_OPTIONS.map((option) => (
+              <label className="choice__option" key={option}>
+                <input
+                  type="radio"
+                  name="experience"
+                  value={option}
+                  checked={experience === option}
+                  onChange={() => {
+                    setExperience(option);
+                    touch("experience");
+                  }}
+                  required
+                />
+                <span>{r.experienceOptions[option]}</span>
+              </label>
+            ))}
+            {experienceError && (
+              <p className="field__error" id="experience-error">
+                {experienceError}
+              </p>
+            )}
+          </fieldset>
+
+          <label className={`consent${consentError ? " consent--invalid" : ""}`}>
+            <input
+              type="checkbox"
+              name="consent"
+              checked={consent}
+              onChange={(e) => {
+                setConsent(e.currentTarget.checked);
+                touch("consent");
+              }}
+              aria-invalid={consentError ? true : undefined}
+              required
+            />
             <span>
               {r.consent.before}
               <a href={r.consent.termsUrl} target="_blank" rel="noopener">
@@ -156,26 +285,28 @@ export default function RegistrationForm() {
               {r.consent.after}
             </span>
           </label>
+          {consentError && <p className="field__error consent__error">{consentError}</p>}
 
           {/* Honeypot: hidden from real users, catches bots. */}
           <input
-            type="checkbox"
-            name="botcheck"
+            type="text"
+            name="website"
             tabIndex={-1}
             autoComplete="off"
-            style={{ display: "none" }}
+            className="hp"
             aria-hidden="true"
           />
 
           <button
             type="submit"
             className="btn btn--primary btn--block"
-            disabled={status === "sending" || status === "success"}
+            disabled={!isValid || status === "sending"}
+            aria-busy={status === "sending" || undefined}
           >
-            {buttonLabel}
+            {status === "sending" ? r.sending : r.button}
           </button>
 
-          {status === "error" && (
+          {failed && (
             <p className="form-error" role="alert">
               {r.error}
             </p>

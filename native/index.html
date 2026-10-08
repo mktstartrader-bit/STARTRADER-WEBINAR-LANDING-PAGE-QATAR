@@ -809,6 +809,7 @@ input {
 }
 
 .form-card {
+  position: relative;
   max-width: 440px;
   margin: 0 auto;
   background: var(--white);
@@ -844,8 +845,7 @@ input {
   margin-bottom: 8px;
 }
 
-.field input,
-.field select {
+.field input:not([type="radio"]) {
   width: 100%;
   height: 48px;
   border: 1px solid var(--border);
@@ -853,7 +853,8 @@ input {
   background: var(--white);
   padding: 0 14px;
   font: inherit;
-  font-size: 14px;
+  /* 16px keeps iOS Safari from zooming the page when a field is tapped. */
+  font-size: 16px;
   color: var(--ink);
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -863,8 +864,7 @@ input {
   color: rgba(80, 85, 91, 0.45);
 }
 
-.field input:focus,
-.field select:focus {
+.field input:not([type="radio"]):focus {
   border-color: var(--brand);
   box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.12);
 }
@@ -876,35 +876,6 @@ input {
   object-fit: cover;
   box-shadow: 0 0 0 1px rgba(28, 31, 42, 0.08);
   flex-shrink: 0;
-}
-
-/* Country select: native <select> with the selected flag + chevron overlaid */
-.select-wrap {
-  position: relative;
-}
-
-.select-wrap select {
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  padding-inline: 44px 40px;
-}
-
-.select-wrap .flag {
-  position: absolute;
-  top: 50%;
-  inset-inline-start: 14px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.select-wrap .chevron {
-  position: absolute;
-  top: 50%;
-  inset-inline-end: 16px;
-  transform: translateY(-50%);
-  color: var(--body);
-  pointer-events: none;
 }
 
 /* Phone: dial-code box + number input, side by side */
@@ -961,6 +932,164 @@ input {
 
 .consent a:hover {
   text-decoration: underline;
+}
+
+/* Validation */
+.field--invalid input:not([type="radio"]),
+.field--invalid .phone-code {
+  border-color: #d93036;
+}
+
+.field--invalid input:not([type="radio"]):focus {
+  box-shadow: 0 0 0 3px rgba(217, 48, 54, 0.14);
+}
+
+.field__error {
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #c4272d;
+}
+
+.consent__error {
+  margin: -14px 0 18px;
+}
+
+/* Trading experience: full-width radio cards, easy to tap on phones */
+.choice {
+  border: 0;
+  min-width: 0;
+}
+
+.choice legend {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.field .choice__option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.field .choice__option:last-of-type {
+  margin-bottom: 0;
+}
+
+.choice__option:hover {
+  border-color: #b9c8db;
+}
+
+.choice__option input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin: 0;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+.choice__option:has(input:checked) {
+  border-color: var(--brand);
+  background: rgba(0, 71, 187, 0.05);
+  box-shadow: 0 0 0 1px var(--brand) inset;
+}
+
+.choice__option:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(0, 71, 187, 0.18);
+}
+
+.field--invalid .choice__option:not(:has(input:checked)) {
+  border-color: #e9a3a6;
+}
+
+.consent--invalid input {
+  outline: 2px solid #d93036;
+  outline-offset: 1px;
+}
+
+/* Honeypot field: clipped to nothing, never shown to people. (Not moved
+   off-screen: a large offset creates sideways scroll in right-to-left.) */
+.hp {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.form-card .btn:disabled {
+  background: #a9b8cf;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.form-card .btn[aria-busy="true"] {
+  background: var(--brand);
+  cursor: progress;
+}
+
+/* Confirmation state */
+.form-card--success {
+  text-align: center;
+  padding-block: 40px 36px;
+}
+
+.form-card--success .form-card__title {
+  outline: none;
+}
+
+.form-success__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: rgba(0, 71, 187, 0.08);
+  color: var(--brand);
+}
+
+.form-success__body {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.form-success__detail {
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--body);
+}
+
+.form-success__detail bdi {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
 }
 
 .form-card .btn {
@@ -1927,10 +2056,15 @@ input {
     font-weight: 600;
     white-space: nowrap;
     box-shadow: 0 14px 34px -8px rgba(0, 71, 187, 0.65);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.2s ease, box-shadow 0.15s ease, opacity 0.2s ease;
   }
   .floating-cta:active {
     transform: translateX(-50%) scale(0.97);
+  }
+  .floating-cta--hidden {
+    opacity: 0;
+    transform: translate(-50%, 24px);
+    pointer-events: none;
   }
   /* Clear space so the fixed CTA never covers the footer disclaimer */
   .footer {
@@ -1964,6 +2098,7 @@ main > .section:not(.register),
 .faq__item[data-open="true"] .faq__toggle-v {
   opacity: 0;
 }
+
     </style>
   </head>
   <body>
@@ -2362,65 +2497,32 @@ main > .section:not(.register),
            ================================================================ -->
       <section class="section section--dark register" id="register">
         <div class="container">
-          <form class="form-card reveal">
+          <form class="form-card reveal" novalidate>
             <h2 class="form-card__title" data-i18n="register.title">Register Now</h2>
             <p class="form-card__sub" data-i18n="register.subtitle">
               Secure your spot for the upcoming webinar
             </p>
 
-            <div class="field">
-              <label for="country" data-i18n="register.country">Country / Region</label>
-              <div class="select-wrap">
-                <img
-                  class="flag"
-                  src="assets/flags/qa.png"
-                  alt=""
-                  width="20"
-                  height="15"
-                  decoding="async"
-                  data-country-flag
-                />
-                <select id="country" name="country">
-                  <option value="qa" selected>Qatar</option>
-                  <option value="sa">Saudi Arabia</option>
-                  <option value="ae">United Arab Emirates</option>
-                  <option value="kw">Kuwait</option>
-                  <option value="bh">Bahrain</option>
-                  <option value="om">Oman</option>
-                  <option value="jo">Jordan</option>
-                  <option value="eg">Egypt</option>
-                  <option value="lb">Lebanon</option>
-                  <option value="iq">Iraq</option>
-                  <option value="ma">Morocco</option>
-                  <option value="in">India</option>
-                  <option value="pk">Pakistan</option>
-                  <option value="bd">Bangladesh</option>
-                  <option value="lk">Sri Lanka</option>
-                  <option value="np">Nepal</option>
-                  <option value="ph">Philippines</option>
-                  <option value="gb">United Kingdom</option>
-                </select>
-                <svg
-                  class="chevron"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M2.5 4.5 6 8l3.5-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
+            <div class="field" data-field="fullName">
+              <label for="fullName" data-i18n="register.name">Full Name</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                autocomplete="name"
+                autocapitalize="words"
+                enterkeyhint="next"
+                maxlength="100"
+                placeholder="Enter your full name"
+                data-i18n-ph="register.namePlaceholder"
+                aria-describedby="fullName-error"
+                required
+              />
+              <p class="field__error" id="fullName-error" hidden></p>
             </div>
 
-            <div class="field">
-              <label for="mobile" data-i18n="register.mobile">Phone Number</label>
+            <div class="field" data-field="mobile">
+              <label for="mobile" data-i18n="register.mobile">Qatar Mobile Number</label>
               <div class="phone-row" dir="ltr">
                 <span class="phone-code">
                   <img
@@ -2430,46 +2532,65 @@ main > .section:not(.register),
                     width="20"
                     height="15"
                     decoding="async"
-                    data-country-flag
                   />
-                  <span data-country-dial>+974</span>
+                  +974
                 </span>
                 <input
                   id="mobile"
                   name="mobile"
                   type="tel"
-                  inputmode="tel"
+                  inputmode="numeric"
                   autocomplete="tel-national"
+                  enterkeyhint="next"
                   placeholder="XXXX XXXX"
-                  pattern="[0-9 ]{6,15}"
-                  title="Enter a valid phone number (digits only)"
+                  data-i18n-ph="register.mobilePlaceholder"
+                  aria-describedby="mobile-error"
                   required
                 />
               </div>
+              <p class="field__error" id="mobile-error" hidden></p>
             </div>
 
-            <label class="consent">
-              <input type="checkbox" name="terms" required />
+            <fieldset class="field choice" data-field="experience" aria-describedby="experience-error">
+              <legend data-i18n="register.experience">What best describes your trading experience?</legend>
+              <label class="choice__option">
+                <input type="radio" name="experience" value="current" required />
+                <span data-i18n="register.experienceOptions.current">I am currently trading</span>
+              </label>
+              <label class="choice__option">
+                <input type="radio" name="experience" value="former" required />
+                <span data-i18n="register.experienceOptions.former">I have traded before, but not currently</span>
+              </label>
+              <label class="choice__option">
+                <input type="radio" name="experience" value="new" required />
+                <span data-i18n="register.experienceOptions.new">I am new to trading</span>
+              </label>
+              <p class="field__error" id="experience-error" hidden></p>
+            </fieldset>
+
+            <label class="consent" data-field="consent">
+              <input type="checkbox" name="consent" required />
               <!-- Kept on one line: whitespace between these inline elements
                    would add stray spaces around the links. -->
               <span><span data-i18n="register.consent.before">I agree to STARTRADER's </span><a href="https://www.startrader.com/legal-documents/" data-i18n="register.consent.terms" data-i18n-href="register.consent.termsUrl" target="_blank" rel="noopener">Terms &amp; Conditions</a><span data-i18n="register.consent.and"> and </span><a href="https://www.startrader.com/privacy-policy/" data-i18n="register.consent.privacy" data-i18n-href="register.consent.privacyUrl" target="_blank" rel="noopener">Privacy Policy</a><span data-i18n="register.consent.after">. I understand that trading CFDs carries a high level of risk and may not be suitable for all investors.</span></span>
             </label>
+            <p class="field__error consent__error" id="consent-error" hidden></p>
 
             <!-- Honeypot: hidden from real users, catches bots. -->
             <input
-              type="checkbox"
-              name="botcheck"
+              type="text"
+              name="website"
               tabindex="-1"
               autocomplete="off"
-              style="display: none"
+              class="hp"
               aria-hidden="true"
             />
 
-            <button type="submit" class="btn btn--primary btn--block">
-              Create Account
+            <button type="submit" class="btn btn--primary btn--block" disabled>
+              Register
             </button>
 
-            <p class="form-error" role="alert" style="display: none"></p>
+            <p class="form-error" role="alert" hidden></p>
 
             <p class="form-signin">
               <span data-i18n="register.haveAccount">Already have an account?</span>
@@ -2483,6 +2604,15 @@ main > .section:not(.register),
               >
             </p>
           </form>
+
+          <div class="form-card form-card--success" role="status" hidden>
+            <span class="form-success__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="#i-check" /></svg>
+            </span>
+            <h2 class="form-card__title" tabindex="-1" data-i18n="register.success.title">You're registered!</h2>
+            <p class="form-success__body"></p>
+            <p class="form-success__detail"></p>
+          </div>
         </div>
       </section>
 

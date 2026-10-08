@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import preact from "@preact/preset-vite";
 
 // Inlines the (small, ~5 KB gzipped) stylesheet into index.html so the first
@@ -27,11 +27,49 @@ function inlineCss(): Plugin {
   };
 }
 
+// Serves api/register.ts on the dev server (Vercel runs it in production).
+// Reads SHEET_* / CRM_* from .env.local if present; without a Sheet URL it
+// uses an in-memory stand-in so the whole flow, duplicates included, can be
+// tested locally.
+function devApi(): Plugin {
+  return {
+    name: "dev-api",
+    apply: "serve",
+    configureServer(server) {
+      Object.assign(process.env, loadEnv("development", process.cwd(), ""));
+      process.env.REGISTER_DEV_MOCK = "1";
+      server.middlewares.use("/api/register", async (req, res) => {
+        try {
+          const mod = await server.ssrLoadModule("/api/register.ts");
+          const chunks: Buffer[] = [];
+          for await (const c of req) chunks.push(c as Buffer);
+          const request = new Request(`http://localhost${req.url ?? ""}`, {
+            method: req.method,
+            headers: req.headers as Record<string, string>,
+            body: req.method === "POST" ? Buffer.concat(chunks) : undefined,
+          });
+          const handler = mod[req.method ?? "GET"];
+          const response: Response = handler
+            ? await handler(request)
+            : new Response("Method Not Allowed", { status: 405 });
+          res.statusCode = response.status;
+          response.headers.forEach((v, k) => res.setHeader(k, v));
+          res.end(Buffer.from(await response.arrayBuffer()));
+        } catch (err) {
+          console.error(err);
+          res.statusCode = 500;
+          res.end();
+        }
+      });
+    },
+  };
+}
+
 // https://vite.dev/config/
 // Preact (via preact/compat) stands in for React: same component code, but a
 // ~4 KB runtime instead of ~45 KB, so far less JS to download and hydrate.
 export default defineConfig({
-  plugins: [preact({ prerender: { enabled: false } }), inlineCss()],
+  plugins: [preact({ prerender: { enabled: false } }), inlineCss(), devApi()],
   // Bundle everything into the build-time SSR renderer so bare "react"
   // imports resolve through the Preact aliases instead of node_modules.
   ssr: { noExternal: true },

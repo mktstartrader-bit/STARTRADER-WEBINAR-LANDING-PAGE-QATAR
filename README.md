@@ -25,7 +25,7 @@ src/
     Icons.tsx                # inline SVG icon set (brand-blue check, etc.)
     Header.tsx               # sticky nav
     Hero.tsx                 # headline, info card, trust bar
-    RegistrationForm.tsx     # registration form (name / +974 phone / email)
+    RegistrationForm.tsx     # registration form (name / +974 mobile / experience / consent)
     WhyWorkshop.tsx          # "Why this workshop" panel
     WhoIsItFor.tsx           # qualifying checklist + tags
     WalkAway.tsx             # outcomes checklist
@@ -36,6 +36,9 @@ src/
     FinalCta.tsx             # closing call-to-action
     Footer.tsx               # logo + risk disclaimer
   assets/                    # brand logos, presenter & media images
+  registration.ts            # form rules shared by the form and the API
+api/register.ts              # registration endpoint: Sheet + CRM
+google-apps-script/Code.gs   # script to paste into the Google Sheet
 ```
 
 ## Notes
@@ -44,5 +47,8 @@ src/
 - **Palette:** brand `#0047bb`, deep navy `#0d0d4b`, teal accent `#16e9d7`.
 - **Responsive:** fluid grids collapse to a single column below ~900px; the page
   never scrolls horizontally.
-- The registration form is front-end only — wire the `onSubmit` handler in
-  `RegistrationForm.tsx` to your CRM / API endpoint.
+- Registration: the form posts to `api/register.ts` (Vercel Function), which
+  checks the Qatar Webinar Google Sheet for duplicate numbers, saves the
+  registration and sends the lead to the CRM. Validation rules are in
+  `src/registration.ts`. Set-up, environment variables and the test checklist:
+  [INTEGRATION.md](INTEGRATION.md).

@@ -44,18 +44,16 @@ URL/campaign parameters and anything typed in the form are kept.
 
 ## Registration form
 
-Country / Region + phone number + Terms & Privacy consent. Leads are sent to
-[Web3Forms](https://web3forms.com); configure at the top of `script.js`:
+Full Name + Qatar mobile (+974 fixed, 8 digits, starting 3/5/6/7) + trading
+experience + consent. **Register** stays disabled until all fields are valid.
 
-- `WEB3FORMS_ACCESS_KEY` — public access key.
-- `LEAD_CC` — extra recipient emails.
-- `LEAD_SUBJECT`, `LEAD_FROM_NAME` — notification email labels.
+The form posts JSON to `REGISTER_ENDPOINT` (top of `script.js`), the
+registration API on the Vercel project. That API checks the Qatar Webinar
+Google Sheet for a duplicate number, saves the registration and sends the lead
+to the CRM. When this page is hosted on another domain, add that domain to
+`ALLOWED_ORIGINS` on Vercel. See `../INTEGRATION.md`.
 
-Each lead contains `country` (e.g. "Qatar"), `mobile` with its dial code
-(e.g. "+974 5000 0000") and `agreedToTerms: Yes`. The country list (flag, dial
-code, number hint, EN/AR names) is the `COUNTRIES` array in `script.js`; add a
-country there, add its `<option>` in `index.html`, and drop its 40px PNG in
-`assets/flags/`.
+The validation rules repeat `src/registration.ts`. Change both together.
 
 ## Performance notes (keep these when integrating)
 

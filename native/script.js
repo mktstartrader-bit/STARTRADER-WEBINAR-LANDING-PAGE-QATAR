@@ -7,12 +7,14 @@
   "use strict";
 
   /* ------------------------------------------------------------------------
-     Lead delivery (Web3Forms). The access key is public by design.
+     Registration endpoint. The form posts JSON here; the server checks the
+     Qatar Webinar Google Sheet for a duplicate number, saves the full
+     registration to the Sheet and sends the lead to the CRM. When this page
+     is hosted somewhere other than the Vercel project, keep the absolute URL
+     and add this page's origin to ALLOWED_ORIGINS on Vercel (INTEGRATION.md).
      ---------------------------------------------------------------------- */
-  var WEB3FORMS_ACCESS_KEY = "dc84ab1b-ebc4-4791-a54c-81e71ce7b0d8";
-  var LEAD_CC = []; // extra recipients — add emails here, no other changes needed
-  var LEAD_SUBJECT = "New Qatar Webinar Registration";
-  var LEAD_FROM_NAME = "STARTRADER Qatar Webinar";
+  var REGISTER_ENDPOINT =
+    "https://startrader-webinar-qatar.vercel.app/api/register";
 
   /* ------------------------------------------------------------------------
      English copy (the HTML is already written in English; this is the source
@@ -66,9 +68,26 @@
       "register": {
         "title": "Register Now",
         "subtitle": "Secure your spot for the upcoming webinar",
-        "country": "Country / Region",
-        "mobile": "Phone Number",
-        "phoneHint": "Enter a valid phone number (digits only)",
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "mobile": "Qatar Mobile Number",
+        "mobilePlaceholder": "XXXX XXXX",
+        "experience": "What best describes your trading experience?",
+        "experienceOptions": {
+          "current": "I am currently trading",
+          "former": "I have traded before, but not currently",
+          "new": "I am new to trading"
+        },
+        "errors": {
+          "nameRequired": "Please enter your full name.",
+          "nameInvalid": "Please use letters only (at least 2).",
+          "mobileRequired": "Please enter your Qatar mobile number.",
+          "mobileLength": "Enter the 8-digit number after +974.",
+          "mobilePrefix": "Qatar mobile numbers start with 3, 5, 6 or 7.",
+          "experienceRequired": "Please choose one option.",
+          "consentRequired": "Please accept the terms to continue."
+        },
+        "duplicate": "This mobile number is already registered for the webinar.",
         "consent": {
           "before": "I agree to STARTRADER's ",
           "terms": "Terms & Conditions",
@@ -78,10 +97,14 @@
           "privacyUrl": "https://www.startrader.com/privacy-policy/",
           "after": ". I understand that trading CFDs carries a high level of risk and may not be suitable for all investors."
         },
-        "button": "Create Account",
-        "sending": "Sending…",
-        "submitted": "You're Registered ✓",
+        "button": "Register",
+        "sending": "Registering…",
         "error": "Something went wrong. Please try again.",
+        "success": {
+          "title": "You're registered!",
+          "body": "Thank you, {name}. Your seat for the live workshop is confirmed.",
+          "detail": "We'll send the joining details to {phone}."
+        },
         "haveAccount": "Already have an account?",
         "signIn": "Sign In",
         "signInUrl": "https://myaccount.startrader.com/login"
@@ -234,136 +257,13 @@
   };
   var AR_SCRIPT = "ar.js";
 
-  /* Country / dial-code options for the form. Qatar is first and default. */
-  var COUNTRIES = [
-    {
-      "iso": "qa",
-      "dial": "+974",
-      "en": "Qatar",
-      "ar": "قطر",
-      "placeholder": "XXXX XXXX"
-    },
-    {
-      "iso": "sa",
-      "dial": "+966",
-      "en": "Saudi Arabia",
-      "ar": "السعودية",
-      "placeholder": "5X XXX XXXX"
-    },
-    {
-      "iso": "ae",
-      "dial": "+971",
-      "en": "United Arab Emirates",
-      "ar": "الإمارات",
-      "placeholder": "5X XXX XXXX"
-    },
-    {
-      "iso": "kw",
-      "dial": "+965",
-      "en": "Kuwait",
-      "ar": "الكويت",
-      "placeholder": "XXXX XXXX"
-    },
-    {
-      "iso": "bh",
-      "dial": "+973",
-      "en": "Bahrain",
-      "ar": "البحرين",
-      "placeholder": "XXXX XXXX"
-    },
-    {
-      "iso": "om",
-      "dial": "+968",
-      "en": "Oman",
-      "ar": "عُمان",
-      "placeholder": "XXXX XXXX"
-    },
-    {
-      "iso": "jo",
-      "dial": "+962",
-      "en": "Jordan",
-      "ar": "الأردن",
-      "placeholder": "7X XXX XXXX"
-    },
-    {
-      "iso": "eg",
-      "dial": "+20",
-      "en": "Egypt",
-      "ar": "مصر",
-      "placeholder": "1X XXXX XXXX"
-    },
-    {
-      "iso": "lb",
-      "dial": "+961",
-      "en": "Lebanon",
-      "ar": "لبنان",
-      "placeholder": "XX XXX XXX"
-    },
-    {
-      "iso": "iq",
-      "dial": "+964",
-      "en": "Iraq",
-      "ar": "العراق",
-      "placeholder": "7XX XXX XXXX"
-    },
-    {
-      "iso": "ma",
-      "dial": "+212",
-      "en": "Morocco",
-      "ar": "المغرب",
-      "placeholder": "6XX XXX XXX"
-    },
-    {
-      "iso": "in",
-      "dial": "+91",
-      "en": "India",
-      "ar": "الهند",
-      "placeholder": "XXXXX XXXXX"
-    },
-    {
-      "iso": "pk",
-      "dial": "+92",
-      "en": "Pakistan",
-      "ar": "باكستان",
-      "placeholder": "3XX XXX XXXX"
-    },
-    {
-      "iso": "bd",
-      "dial": "+880",
-      "en": "Bangladesh",
-      "ar": "بنغلاديش",
-      "placeholder": "1XXX XXX XXX"
-    },
-    {
-      "iso": "lk",
-      "dial": "+94",
-      "en": "Sri Lanka",
-      "ar": "سريلانكا",
-      "placeholder": "7X XXX XXXX"
-    },
-    {
-      "iso": "np",
-      "dial": "+977",
-      "en": "Nepal",
-      "ar": "نيبال",
-      "placeholder": "98X XXX XXXX"
-    },
-    {
-      "iso": "ph",
-      "dial": "+63",
-      "en": "Philippines",
-      "ar": "الفلبين",
-      "placeholder": "9XX XXX XXXX"
-    },
-    {
-      "iso": "gb",
-      "dial": "+44",
-      "en": "United Kingdom",
-      "ar": "المملكة المتحدة",
-      "placeholder": "7XXX XXXXXX"
-    }
-  ];
-  var FLAG_DIR = "assets/flags/";
+  /* Registration rules — keep in sync with src/registration.ts. */
+  var QATAR_DIAL = "+974";
+  // Qatar mobile numbers: 8 digits starting with 3, 5, 6 or 7.
+  var QATAR_MOBILE_PREFIXES = ["3", "5", "6", "7"];
+  var EXPERIENCE_OPTIONS = ["current", "former", "new"];
+  var TRACKING_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term",
+    "utm_content", "gclid", "fbclid"];
 
   /* ------------------------------------------------------------------------
      Internationalisation — swap [data-i18n] text, placeholders, links and
@@ -446,8 +346,7 @@
     });
 
     updateLangMenu();
-    renderCountryOptions();
-    refreshSubmitButton();
+    renderForm();
   }
 
   // Switching never reloads the page, so URL parameters and anything typed
@@ -538,98 +437,230 @@
   });
 
   /* ------------------------------------------------------------------------
-     Registration form → Web3Forms
-     Country / Region select drives the flag, dial code and number hint.
+     Registration form: validates as the visitor types, keeps Register
+     disabled until every field is valid, then posts to REGISTER_ENDPOINT.
      ---------------------------------------------------------------------- */
-  var form = document.querySelector(".form-card");
+  var form = document.querySelector("form.form-card");
+  var successCard = document.querySelector(".form-card--success");
   var submitBtn = form.querySelector('button[type="submit"]');
   var errorEl = form.querySelector(".form-error");
-  var countrySelect = form.querySelector("#country");
+  var nameInput = form.querySelector("#fullName");
   var mobileInput = form.querySelector("#mobile");
-  var flagImgs = form.querySelectorAll("[data-country-flag]");
-  var dialEl = form.querySelector("[data-country-dial]");
-  var status = "idle"; // idle | sending | success | error
+  var consentInput = form.querySelector('input[name="consent"]');
+  var radios = form.querySelectorAll('input[name="experience"]');
+  var touched = {};
+  var duplicate = false;
+  var failed = false;
+  var sending = false;
 
-  function findCountry(iso) {
-    for (var i = 0; i < COUNTRIES.length; i++) {
-      if (COUNTRIES[i].iso === iso) return COUNTRIES[i];
+  function cleanName(v) {
+    return v.replace(/\s+/g, " ").trim();
+  }
+
+  // Digits only, max 8; drops a pasted +974 / 00974 country code.
+  function normalizeMobile(v) {
+    var d = v.replace(/\D/g, "");
+    if (d.indexOf("00974") === 0 && d.length > 8) d = d.slice(5);
+    else if (d.indexOf("974") === 0 && d.length > 8) d = d.slice(3);
+    return d.slice(0, 8);
+  }
+
+  function formatMobile(d) {
+    return d.length > 4 ? d.slice(0, 4) + " " + d.slice(4) : d;
+  }
+
+  var NAME_OK = /^[\p{L}\p{M}' .\-’]+$/u;
+  var HAS_LETTER = /\p{L}/u;
+
+  function experienceValue() {
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
+    return "";
+  }
+
+  function validate() {
+    var e = {};
+    var name = cleanName(nameInput.value);
+    if (!name) e.fullName = "nameRequired";
+    else if (name.length < 2 || name.length > 100 || !HAS_LETTER.test(name) || !NAME_OK.test(name))
+      e.fullName = "nameInvalid";
+    var m = mobileInput.value;
+    if (!m) e.mobile = "mobileRequired";
+    else if (!/^\d{8}$/.test(m)) e.mobile = "mobileLength";
+    else if (QATAR_MOBILE_PREFIXES.indexOf(m.charAt(0)) === -1) e.mobile = "mobilePrefix";
+    if (EXPERIENCE_OPTIONS.indexOf(experienceValue()) === -1) e.experience = "experienceRequired";
+    if (!consentInput.checked) e.consent = "consentRequired";
+    return e;
+  }
+
+  function showError(field, message) {
+    var el = document.getElementById(field + "-error");
+    var wrap = form.querySelector('[data-field="' + field + '"]');
+    el.hidden = !message;
+    el.textContent = message || "";
+    if (wrap) wrap.classList.toggle(field === "consent" ? "consent--invalid" : "field--invalid", !!message);
+    var input = field === "fullName" ? nameInput : field === "mobile" ? mobileInput : field === "consent" ? consentInput : null;
+    if (input) {
+      if (message) input.setAttribute("aria-invalid", "true");
+      else input.removeAttribute("aria-invalid");
     }
-    return COUNTRIES[0];
   }
 
-  // Option labels follow the active language; the selected value is kept.
-  function renderCountryOptions() {
-    var selected = countrySelect.value || COUNTRIES[0].iso;
-    for (var i = 0; i < countrySelect.options.length; i++) {
-      var opt = countrySelect.options[i];
-      var c = findCountry(opt.value);
-      opt.textContent = currentLang === "ar" ? c.ar : c.en;
-    }
-    countrySelect.value = selected;
-  }
-
-  function updateCountry() {
-    var c = findCountry(countrySelect.value);
-    flagImgs.forEach(function (img) {
-      img.src = FLAG_DIR + c.iso + ".png";
-    });
-    dialEl.textContent = c.dial;
-    mobileInput.placeholder = c.placeholder;
-  }
-  countrySelect.addEventListener("change", updateCountry);
-
-  function refreshSubmitButton() {
+  function renderForm() {
     var r = translations[currentLang].register;
-    submitBtn.textContent =
-      status === "sending"
-        ? r.sending
-        : status === "success"
-          ? r.submitted
-          : r.button;
-    submitBtn.disabled = status === "sending" || status === "success";
-    errorEl.style.display = status === "error" ? "" : "none";
-    if (status === "error") errorEl.textContent = r.error;
+    var errors = validate();
+    ["fullName", "mobile", "experience", "consent"].forEach(function (f) {
+      var msg = touched[f] && errors[f] ? r.errors[errors[f]] : "";
+      if (f === "mobile" && duplicate) msg = r.duplicate;
+      showError(f, msg);
+    });
+    var valid = Object.keys(errors).length === 0 && !duplicate;
+    submitBtn.disabled = !valid || sending;
+    submitBtn.textContent = sending ? r.sending : r.button;
+    if (sending) submitBtn.setAttribute("aria-busy", "true");
+    else submitBtn.removeAttribute("aria-busy");
+    errorEl.hidden = !failed;
+    errorEl.textContent = failed ? r.error : "";
+    if (!successCard.hidden) renderSuccess();
+    return valid;
+  }
+
+  var confirmed = { name: "", phone: "" };
+  function renderSuccess() {
+    var s = translations[currentLang].register.success;
+    successCard.querySelector(".form-success__body").textContent =
+      s.body.replace("{name}", confirmed.name);
+    var detail = successCard.querySelector(".form-success__detail");
+    var parts = s.detail.split("{phone}");
+    detail.textContent = "";
+    detail.appendChild(document.createTextNode(parts[0]));
+    var bdi = document.createElement("bdi");
+    bdi.dir = "ltr";
+    bdi.textContent = confirmed.phone;
+    detail.appendChild(bdi);
+    detail.appendChild(document.createTextNode(parts[1] || ""));
+  }
+
+  function touch(f) {
+    touched[f] = true;
+  }
+
+  nameInput.addEventListener("input", renderForm);
+  nameInput.addEventListener("blur", function () {
+    if (nameInput.value) touch("fullName");
+    renderForm();
+  });
+  mobileInput.addEventListener("input", function () {
+    var d = normalizeMobile(mobileInput.value);
+    if (mobileInput.value !== d) mobileInput.value = d;
+    duplicate = false;
+    if (d.length === 8) touch("mobile");
+    renderForm();
+  });
+  mobileInput.addEventListener("blur", function () {
+    if (mobileInput.value) touch("mobile");
+    renderForm();
+  });
+  radios.forEach(function (r) {
+    r.addEventListener("change", function () {
+      touch("experience");
+      renderForm();
+    });
+  });
+  consentInput.addEventListener("change", function () {
+    touch("consent");
+    renderForm();
+  });
+
+  function readTracking() {
+    var out = {};
+    try {
+      var params = new URLSearchParams(window.location.search);
+      TRACKING_KEYS.forEach(function (k) {
+        var v = params.get(k);
+        if (v) out[k] = v.slice(0, 200);
+      });
+    } catch (e) {
+      /* ignore */
+    }
+    return out;
   }
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (status === "sending" || status === "success") return;
+    if (sending) return;
+    touched = { fullName: true, mobile: true, experience: true, consent: true };
+    if (!renderForm()) return;
 
-    var data = new FormData(form);
-    data.append("access_key", WEB3FORMS_ACCESS_KEY);
-    data.append("subject", LEAD_SUBJECT);
-    data.append("from_name", LEAD_FROM_NAME);
-    if (LEAD_CC.length > 0) data.append("cc", LEAD_CC.join(", "));
+    failed = false;
+    sending = true;
+    renderForm();
 
-    // Send readable values: country name + dial-ready mobile number.
-    var c = findCountry(String(data.get("country") || ""));
-    data.set("country", c.en);
-    var mobile = String(data.get("mobile") || "").trim();
-    if (mobile) data.set("mobile", c.dial + " " + mobile);
-    data.set("agreedToTerms", "Yes");
-
-    status = "sending";
-    refreshSubmitButton();
-
-    fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
+    var name = cleanName(nameInput.value);
+    var mobile = mobileInput.value;
+    fetch(REGISTER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fullName: name,
+        mobile: mobile,
+        experience: experienceValue(),
+        consent: consentInput.checked,
+        language: currentLang,
+        pageUrl: window.location.href.slice(0, 500),
+        referrer: document.referrer.slice(0, 500),
+        tracking: readTracking(),
+        website: form.querySelector('input[name="website"]').value
+      })
+    })
       .then(function (res) {
-        return res.json();
+        return res.json().catch(function () {
+          return null;
+        });
       })
       .then(function (json) {
-        if (json && json.success) {
-          status = "success";
-          form.reset();
-          updateCountry();
-        } else {
-          status = "error";
+        sending = false;
+        if (json && json.ok) {
+          confirmed = { name: name.split(" ")[0], phone: QATAR_DIAL + " " + formatMobile(mobile) };
+          form.hidden = true;
+          successCard.hidden = false;
+          renderSuccess();
+          var title = successCard.querySelector(".form-card__title");
+          title.focus({ preventScroll: true });
+          successCard.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
         }
-        refreshSubmitButton();
+        if (json && json.code === "duplicate") duplicate = true;
+        else failed = true;
+        renderForm();
       })
       .catch(function () {
-        status = "error";
-        refreshSubmitButton();
+        sending = false;
+        failed = true;
+        renderForm();
       });
   });
+
+  /* Floating mobile CTA steps aside while the form is on screen, so it never
+     covers the Register button. */
+  (function initFloatingCta() {
+    var cta = document.querySelector(".floating-cta");
+    var section = document.getElementById("register");
+    if (!cta || !section || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(
+      function (entries) {
+        var inView = entries[0].isIntersecting;
+        cta.classList.toggle("floating-cta--hidden", inView);
+        if (inView) {
+          cta.setAttribute("aria-hidden", "true");
+          cta.setAttribute("tabindex", "-1");
+        } else {
+          cta.removeAttribute("aria-hidden");
+          cta.removeAttribute("tabindex");
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px" }
+    ).observe(section);
+  })();
 
   /* ------------------------------------------------------------------------
      Reveal-on-scroll — add .is-visible to .reveal / .stagger on first view.
@@ -706,5 +737,6 @@
     saved = null;
   }
   updateLangMenu();
+  renderForm(); // picks up values the browser restored (e.g. Back button)
   if (saved === "ar") switchLang("ar");
 })();
