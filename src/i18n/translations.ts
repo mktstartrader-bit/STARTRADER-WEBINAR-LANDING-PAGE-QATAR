@@ -57,7 +57,8 @@ const en = {
     duplicate: "This mobile number is already registered for the webinar.",
     consent:
       "I consent to STARTRADER sending my access link and session reminders via call, SMS, or WhatsApp to help me attend smoothly.",
-    button: "Create Account",
+    button: "Reserve My Free Seat",
+    microcopy: "Takes less than 60 seconds to register",
     sending: "Registering…",
     error: "Something went wrong. Please try again.",
     success: {

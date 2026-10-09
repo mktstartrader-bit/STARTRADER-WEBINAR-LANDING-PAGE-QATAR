@@ -1092,10 +1092,18 @@ input {
   white-space: nowrap;
 }
 
+/* Submit: full-width pill, same style as the page's other CTAs */
 .form-card .btn {
-  height: 50px;
-  border-radius: 8px;
+  height: 54px;
+  font-size: 15px;
   font-weight: 600;
+}
+
+.form-microcopy {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 12px;
 }
 
 .form-error {
@@ -2580,8 +2588,9 @@ main > .section:not(.register),
             />
 
             <button type="submit" class="btn btn--primary btn--block" disabled>
-              Create Account
+              Reserve My Free Seat
             </button>
+            <p class="form-microcopy" data-i18n="register.microcopy">Takes less than 60 seconds to register</p>
 
             <p class="form-error" role="alert" hidden></p>
           </form>

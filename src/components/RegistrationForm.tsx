@@ -295,6 +295,7 @@ export default function RegistrationForm() {
           >
             {status === "sending" ? r.sending : r.button}
           </button>
+          <p className="form-microcopy">{r.microcopy}</p>
 
           {failed && (
             <p className="form-error" role="alert">
