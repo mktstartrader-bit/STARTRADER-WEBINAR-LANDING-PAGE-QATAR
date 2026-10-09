@@ -76,9 +76,6 @@ const ar: Translation = {
       body: "شكراً لك يا {name}. تم تأكيد مقعدك في الورشة المباشرة.",
       detail: "سنرسل تفاصيل الانضمام إلى الرقم {phone}.",
     },
-    haveAccount: "لديك حساب بالفعل؟",
-    signIn: "تسجيل الدخول",
-    signInUrl: "https://myaccount.startrader.com/login",
   },
 
   why: {

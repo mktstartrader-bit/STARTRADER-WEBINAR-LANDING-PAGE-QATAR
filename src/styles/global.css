@@ -980,21 +980,6 @@ input {
   margin-top: 12px;
 }
 
-.form-signin {
-  text-align: center;
-  font-size: 13px;
-  color: var(--body);
-  margin-top: 16px;
-}
-
-.form-signin a {
-  color: var(--brand);
-  font-weight: 600;
-}
-
-.form-signin a:hover {
-  text-decoration: underline;
-}
 
 @media (max-width: 480px) {
   .form-card {

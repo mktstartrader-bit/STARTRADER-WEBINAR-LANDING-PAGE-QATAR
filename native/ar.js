@@ -83,10 +83,7 @@ window.STARTRADER_I18N_AR = {
       "title": "تم تسجيلك بنجاح!",
       "body": "شكراً لك يا {name}. تم تأكيد مقعدك في الورشة المباشرة.",
       "detail": "سنرسل تفاصيل الانضمام إلى الرقم {phone}."
-    },
-    "haveAccount": "لديك حساب بالفعل؟",
-    "signIn": "تسجيل الدخول",
-    "signInUrl": "https://myaccount.startrader.com/login"
+    }
   },
   "why": {
     "title": "لماذا هذه الندوة؟",

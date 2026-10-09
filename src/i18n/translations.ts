@@ -73,9 +73,6 @@ const en = {
       body: "Thank you, {name}. Your seat for the live workshop is confirmed.",
       detail: "We'll send the joining details to {phone}.",
     },
-    haveAccount: "Already have an account?",
-    signIn: "Sign In",
-    signInUrl: "https://myaccount.startrader.com/login",
   },
 
   why: {

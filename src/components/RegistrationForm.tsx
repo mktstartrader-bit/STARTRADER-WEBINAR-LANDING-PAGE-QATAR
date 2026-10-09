@@ -312,12 +312,6 @@ export default function RegistrationForm() {
             </p>
           )}
 
-          <p className="form-signin">
-            {r.haveAccount}{" "}
-            <a href={r.signInUrl} target="_blank" rel="noopener">
-              {r.signIn}
-            </a>
-          </p>
         </form>
       </div>
     </section>
