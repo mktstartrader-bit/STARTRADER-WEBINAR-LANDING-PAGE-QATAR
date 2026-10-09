@@ -64,19 +64,11 @@ window.STARTRADER_I18N_AR = {
       "mobileLength": "أدخل الرقم المكوّن من 8 أرقام بعد \u2066+974\u2069.",
       "mobilePrefix": "تبدأ أرقام الجوال القطرية بـ 3 أو 5 أو 6 أو 7.",
       "experienceRequired": "يرجى اختيار أحد الخيارات.",
-      "consentRequired": "يرجى الموافقة على الشروط للمتابعة."
+      "consentRequired": "يرجى تحديد المربع للمتابعة."
     },
     "duplicate": "رقم الجوال هذا مسجّل بالفعل في الندوة.",
-    "consent": {
-      "before": "أوافق على ",
-      "terms": "الشروط والأحكام",
-      "termsUrl": "https://www.startrader.com/ar/legal-documents/",
-      "and": " و",
-      "privacy": "سياسة الخصوصية",
-      "privacyUrl": "https://www.startrader.com/privacy-policy/",
-      "after": " الخاصة بـ STARTRADER. وأدرك أن تداول عقود الفروقات ينطوي على مستوى عالٍ من المخاطر وقد لا يكون مناسباً لجميع المستثمرين."
-    },
-    "button": "سجّل الآن",
+    "consent": "أوافق على أن ترسل لي STARTRADER رابط الدخول وتذكيرات بموعد الجلسة عبر الاتصال أو الرسائل النصية أو واتساب لمساعدتي على الحضور بسهولة.",
+    "button": "إنشاء حساب",
     "sending": "جارٍ التسجيل…",
     "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     "success": {

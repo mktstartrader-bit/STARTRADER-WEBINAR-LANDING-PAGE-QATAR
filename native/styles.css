@@ -1390,9 +1390,19 @@ input {
 
 .presenter__media img {
   width: 100%;
+  /* height:auto overrides the height attribute, so the image keeps its
+     landscape shape instead of stretching to 338px on narrow screens. */
+  height: auto;
   border-radius: var(--radius);
   object-fit: cover;
   aspect-ratio: 305 / 169;
+}
+
+/* Phones: one photo per row, full width, so neither is shrunk or cropped. */
+@media (max-width: 600px) {
+  .presenter__media {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 900px) {

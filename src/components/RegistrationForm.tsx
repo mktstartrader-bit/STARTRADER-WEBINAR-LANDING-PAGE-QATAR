@@ -273,17 +273,7 @@ export default function RegistrationForm() {
               aria-invalid={consentError ? true : undefined}
               required
             />
-            <span>
-              {r.consent.before}
-              <a href={r.consent.termsUrl} target="_blank" rel="noopener">
-                {r.consent.terms}
-              </a>
-              {r.consent.and}
-              <a href={r.consent.privacyUrl} target="_blank" rel="noopener">
-                {r.consent.privacy}
-              </a>
-              {r.consent.after}
-            </span>
+            <span>{r.consent}</span>
           </label>
           {consentError && <p className="field__error consent__error">{consentError}</p>}
 

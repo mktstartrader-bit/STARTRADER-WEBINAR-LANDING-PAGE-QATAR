@@ -1416,9 +1416,19 @@ input {
 
 .presenter__media img {
   width: 100%;
+  /* height:auto overrides the height attribute, so the image keeps its
+     landscape shape instead of stretching to 338px on narrow screens. */
+  height: auto;
   border-radius: var(--radius);
   object-fit: cover;
   aspect-ratio: 305 / 169;
+}
+
+/* Phones: one photo per row, full width, so neither is shrunk or cropped. */
+@media (max-width: 600px) {
+  .presenter__media {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 900px) {
@@ -2555,9 +2565,7 @@ main > .section:not(.register),
 
             <label class="consent" data-field="consent">
               <input type="checkbox" name="consent" required />
-              <!-- Kept on one line: whitespace between these inline elements
-                   would add stray spaces around the links. -->
-              <span><span data-i18n="register.consent.before">I agree to STARTRADER's </span><a href="https://www.startrader.com/legal-documents/" data-i18n="register.consent.terms" data-i18n-href="register.consent.termsUrl" target="_blank" rel="noopener">Terms &amp; Conditions</a><span data-i18n="register.consent.and"> and </span><a href="https://www.startrader.com/privacy-policy/" data-i18n="register.consent.privacy" data-i18n-href="register.consent.privacyUrl" target="_blank" rel="noopener">Privacy Policy</a><span data-i18n="register.consent.after">. I understand that trading CFDs carries a high level of risk and may not be suitable for all investors.</span></span>
+              <span data-i18n="register.consent">I consent to STARTRADER sending my access link and session reminders via call, SMS, or WhatsApp to help me attend smoothly.</span>
             </label>
             <p class="field__error consent__error" id="consent-error" hidden></p>
 
@@ -2572,7 +2580,7 @@ main > .section:not(.register),
             />
 
             <button type="submit" class="btn btn--primary btn--block" disabled>
-              Register
+              Create Account
             </button>
 
             <p class="form-error" role="alert" hidden></p>

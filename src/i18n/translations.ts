@@ -52,20 +52,12 @@ const en = {
       mobileLength: "Enter the 8-digit number after +974.",
       mobilePrefix: "Qatar mobile numbers start with 3, 5, 6 or 7.",
       experienceRequired: "Please choose one option.",
-      consentRequired: "Please accept the terms to continue.",
+      consentRequired: "Please tick the box to continue.",
     },
     duplicate: "This mobile number is already registered for the webinar.",
-    consent: {
-      before: "I agree to STARTRADER's ",
-      terms: "Terms & Conditions",
-      termsUrl: "https://www.startrader.com/legal-documents/",
-      and: " and ",
-      privacy: "Privacy Policy",
-      privacyUrl: "https://www.startrader.com/privacy-policy/",
-      after:
-        ". I understand that trading CFDs carries a high level of risk and may not be suitable for all investors.",
-    },
-    button: "Register",
+    consent:
+      "I consent to STARTRADER sending my access link and session reminders via call, SMS, or WhatsApp to help me attend smoothly.",
+    button: "Create Account",
     sending: "Registering…",
     error: "Something went wrong. Please try again.",
     success: {
